@@ -27,7 +27,7 @@ public class DoctorApp extends Application {
     
     @Override
     public void start(Stage stage) throws MalformedURLException, IOException {
-         URL url = new File("src/doctorapp/primeraPantalla.fxml").toURI().toURL();
+        URL url = new File("src/doctorapp/primeraPantalla.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
 
