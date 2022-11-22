@@ -15,33 +15,46 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
  *
  * @author agarc
  */
-public class MenuDoctorController {
+public class RegisterDoctorController {
     @FXML
-    private Button registerPatientButton;
+    private TextField txtname;
 
     @FXML
     private Button registerDoctorButton;
 
     @FXML
-    private Button viewPatientsButton;
+    private Button backMenuButton;
+
+    
+    @FXML
+    private TextField txtsurname;
+
+    @FXML
+    private ChoiceBox<?> RoleChoiceBox1;
+
+    @FXML
+    private TextField txtemail;
+
+    @FXML
+    private TextField txtusername;
+
+    @FXML
+    private TextField txtpassword;
 
     @FXML
     private Button exitButton;
 
     @FXML
-    void exit(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerDoctor(ActionEvent event) throws IOException {
-        URL url = new File("src/doctorapp/registerDoctor.fxml").toURI().toURL();
+    void backtoMenu(ActionEvent event) throws IOException{
+        URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -52,23 +65,12 @@ public class MenuDoctorController {
     }
 
     @FXML
-    void registerPatient(ActionEvent event) throws IOException {
-        URL url = new File("src/doctorapp/registerPatient.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);    
-        Scene scene = new Scene(root);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        stage.setScene(scene);
-        stage.show();
+    void exitApp(ActionEvent event) {
 
     }
-
-    
 
     @FXML
-    void viewPatients(ActionEvent event) {
+    void registerDoctor(ActionEvent event) {
 
     }
-
-    
 }
