@@ -66,7 +66,14 @@ public class MenuDoctorController {
     
 
     @FXML
-    void viewPatients(ActionEvent event) {
+    void viewPatients(ActionEvent event) throws IOException{
+        URL url = new File("src/doctorapp/viewPatients.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);    
+        Scene scene = new Scene(root);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.show();
 
     }
 

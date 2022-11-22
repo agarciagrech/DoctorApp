@@ -5,9 +5,13 @@
  */
 package doctorapp;
 
+import doctorUtilities.CommunicationWithServer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pojos.Patient;
 
 /**
  *
@@ -28,7 +33,7 @@ public class RegisterPatientController {
     private TextField txtname;
 
     @FXML
-    private ChoiceBox<?> genderChoiceBox;
+    private ChoiceBox<String> genderChoiceBox;
 
     @FXML
     private Button registerPatientButton;
@@ -64,12 +69,34 @@ public class RegisterPatientController {
 
     @FXML
     private TextField txtpassword;
+    
+     @FXML
+    private TextField txtallergies;
 
     @FXML
     private Button exitButton;
 
     @FXML
     void addPatient(ActionEvent event) {
+        ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female");
+        genderChoiceBox.setItems(genderList);
+        genderChoiceBox.setValue("Male");
+        
+        String name = txtname.getText();
+        String surname = txtsurname.getText();
+        String address = txtaddress.getText();
+        String email = txtemail.getText();
+        String macAddress = txtmacAddress.getText();
+        String diagnosis = txtdiagnosis.getText();
+        String password = txtpassword.getText();
+        String gender = genderChoiceBox.getValue();
+        Date dob = new Date(txtdob.getText());
+        Integer medCard = Integer.parseInt(txtmedCardNumber.getText());
+        String allergies = txtallergies.getText();
+        
+        Patient p = new Patient(medCard,name, surname,dob, address,email, diagnosis, allergies, gender, macAddress );
+        //CommunicationWithServer.sendPatient(pw,p);
+        
 
     }
 

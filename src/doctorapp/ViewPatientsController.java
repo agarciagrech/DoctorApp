@@ -15,41 +15,47 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import pojos.Doctor;
 
 /**
  *
  * @author agarc
  */
-public class RegisterDoctorController {
+public class ViewPatientsController {
     @FXML
-    private TextField txtname;
-
-    @FXML
-    private Button registerDoctorButton;
+    private TableView<?> patientTable;
 
     @FXML
-    private Button backMenuButton;
-
-    
-    @FXML
-    private TextField txtsurname;
-
+    private TableColumn<?, ?> medCardCol;
 
     @FXML
-    private TextField txtemail;
+    private TableColumn<?, ?> nameCol;
 
-   @FXML
-    private TextField txtId;
+    @FXML
+    private TableColumn<?, ?> surnameCol;
+
+    @FXML
+    private TextField filtro;
+
+    @FXML
+    private Button editButton;
 
     @FXML
     private Button exitButton;
 
     @FXML
-    void backtoMenu(ActionEvent event) throws IOException{
+    private Button showSignals;
+
+    @FXML
+    private Button backMenuOption;
+
+    @FXML
+    void back(ActionEvent event) throws IOException {
         URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
@@ -61,19 +67,28 @@ public class RegisterDoctorController {
     }
 
     @FXML
+    void editPatient(ActionEvent event) {
+
+    }
+
+    @FXML
     void exitApp(ActionEvent event) {
 
     }
 
     @FXML
-    void registerDoctor(ActionEvent event) {
-        String name = txtname.getText();
-        String surname = txtsurname.getText();
-        Integer doctorId = Integer.parseInt(txtId.getText());
-        String email = txtemail.getText();
-        
-        Doctor d = new Doctor(doctorId,name, surname,email);
-        //Mandar ese doctor al server 
+    void patientSelected(MouseEvent event) {
 
     }
+
+    @FXML
+    void search(KeyEvent event) {
+
+    }
+
+    @FXML
+    void showPatientSignals(ActionEvent event) {
+
+    }
+    
 }
