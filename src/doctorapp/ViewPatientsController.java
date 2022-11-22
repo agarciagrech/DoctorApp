@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import pojos.Patient;
 
 /**
  *
@@ -28,16 +29,16 @@ import javafx.stage.Stage;
  */
 public class ViewPatientsController {
     @FXML
-    private TableView<?> patientTable;
+    private TableView<Patient> patientTable;
 
     @FXML
-    private TableColumn<?, ?> medCardCol;
+    private TableColumn<Patient, Integer> medCardCol;
 
     @FXML
-    private TableColumn<?, ?> nameCol;
+    private TableColumn<Patient, String> nameCol;
 
     @FXML
-    private TableColumn<?, ?> surnameCol;
+    private TableColumn<Patient, String> surnameCol;
 
     @FXML
     private TextField filtro;

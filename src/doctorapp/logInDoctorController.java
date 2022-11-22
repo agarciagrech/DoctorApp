@@ -14,9 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  *
@@ -42,6 +44,20 @@ public class logInDoctorController {
 
     @FXML
     void logIn(ActionEvent event) throws  IOException {
+        Window owner = logInButton.getScene().getWindow();
+        if(doctorUsername.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter your username");
+            return;
+        }
+        if(doctorPassword.getText().isEmpty()){
+             showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter your password");
+             return;
+        }
+        
+        String username = doctorUsername.getText();
+        String password = doctorPassword.getText();
+        //MANDAR DATOS AL SERVER 
+        
         URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
@@ -51,5 +67,21 @@ public class logInDoctorController {
         stage.show();
 
     }
+    public static void infoMessage(String infoMessage, String headerText, String title) {
+       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setContentText(infoMessage);
+           alert.setTitle(title);
+           alert.setHeaderText(headerText);
+           alert.showAndWait();
+       }
+
+       public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message ) {
+       Alert alert = new Alert(alertType);
+       alert.setTitle(title);
+       alert.setHeaderText(null);
+       alert.setContentText(message);
+       alert.initOwner(owner);
+       alert.show();
+       }
     
 }
