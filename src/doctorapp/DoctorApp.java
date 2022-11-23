@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -38,6 +39,7 @@ public class DoctorApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        MenuDoctor.ConnectToServer();
     }
     
 }

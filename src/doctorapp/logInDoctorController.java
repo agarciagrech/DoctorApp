@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -56,15 +57,25 @@ public class logInDoctorController {
         
         String username = doctorUsername.getText();
         String password = doctorPassword.getText();
-        //MANDAR DATOS AL SERVER 
+        Boolean logInCheck = MenuDoctor.logInDoctor(username, password);
         
-        URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);    
-        Scene scene = new Scene(root);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        if(!logInCheck){
+            infoMessage("Please enter correct username or password", null, "Failed");
+        }else{
+            try{
+                URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
+                Parent root = FXMLLoader.load(url);    
+                Scene scene = new Scene(root);
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        stage.setScene(scene);
-        stage.show();
+                stage.setScene(scene);
+                stage.show();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+        
 
     }
     public static void infoMessage(String infoMessage, String headerText, String title) {
