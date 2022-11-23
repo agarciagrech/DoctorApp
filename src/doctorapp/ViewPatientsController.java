@@ -5,12 +5,20 @@
  */
 package doctorapp;
 
+import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -27,7 +36,7 @@ import pojos.Patient;
  *
  * @author agarc
  */
-public class ViewPatientsController {
+public class ViewPatientsController implements Initializable {
     @FXML
     private TableView<Patient> patientTable;
 
@@ -54,6 +63,24 @@ public class ViewPatientsController {
 
     @FXML
     private Button backMenuOption;
+    
+    private ObservableList<Patient> Doctorpatients = FXCollections.observableArrayList();
+    FilteredList filter = new FilteredList(Doctorpatients, e -> true);
+    private static SceneChanger sc;
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+       this.editButton.setDisable(true);
+       this.showSignals.setDisable(true);
+       
+       medCardCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("medical_card_number"));
+       nameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
+       surnameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("surname"));
+       
+       patientTable.setEditable(true);
+       loadPatients();
+       patientTable.setItems(Doctorpatients);
+    }
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -66,9 +93,31 @@ public class ViewPatientsController {
         stage.show();
 
     }
+    
+    public void loadPatients(){
+        List<Patient> patientsList = new ArrayList<>();
+        patientsList = MenuDoctor.seeMyPatients();
+        
+        int i;
+        Patient p;
+        
+        for(i=0; i<patientsList.size(); i++){
+            p = patientsList.get(i);
+            this.Doctorpatients.add(p);
+        }
+    }
+    
+    public void SelectedPatient(){
+       this.editButton.setDisable(false);
+       this.showSignals.setDisable(false);
+    }
 
     @FXML
-    void editPatient(ActionEvent event) {
+    void editPatient(ActionEvent event) throws IOException {
+        sc = new SceneChanger();
+        Patient chosenPatient = this.patientTable.getSelectionModel().getSelectedItem();
+        RegisterPatientController controller = new RegisterPatientController();
+        sc.ChangeSceneWithPatient(event, "registerPatient.fxml", chosenPatient, controller);
 
     }
 
@@ -77,10 +126,7 @@ public class ViewPatientsController {
 
     }
 
-    @FXML
-    void patientSelected(MouseEvent event) {
-
-    }
+   
 
     @FXML
     void search(KeyEvent event) {
@@ -91,5 +137,7 @@ public class ViewPatientsController {
     void showPatientSignals(ActionEvent event) {
 
     }
+
+   
     
 }

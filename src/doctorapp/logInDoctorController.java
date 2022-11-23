@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.CommunicationWithServer;
 import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class logInDoctorController {
 
     @FXML
     private Button exitButton;
+    
+    @FXML
+    private TextField IPAddress;
 
     @FXML
     void exit(ActionEvent event) {
@@ -57,12 +61,14 @@ public class logInDoctorController {
         
         String username = doctorUsername.getText();
         String password = doctorPassword.getText();
+        String IP = IPAddress.getText();
         Boolean logInCheck = MenuDoctor.logInDoctor(username, password);
         
         if(!logInCheck){
             infoMessage("Please enter correct username or password", null, "Failed");
         }else{
             try{
+                MenuDoctor.ConnectToServer(IP);
                 URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
                 Parent root = FXMLLoader.load(url);    
                 Scene scene = new Scene(root);

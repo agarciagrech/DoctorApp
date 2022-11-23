@@ -27,17 +27,17 @@ import pojos.User;
  * @author agarc
  */
 public class CommunicationWithServer {
-     public static Socket connectToServer() {
+     public static Socket connectToServer(String IPAddress) {
         Socket socket = new Socket();
         try {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
             PrintWriter printWriter = new PrintWriter (outputStream,true);
             BufferedReader bf = new BufferedReader (new InputStreamReader (inputStream));
-            System.out.println("Introduce your IP: ");
-            String ip = bf.readLine();
+            //System.out.println("Introduce your IP: ");
+            //String ip = bf.readLine();
             //printWriter.println(ip); //si queremos mandarle el ip al server
-            socket = new Socket(ip, 9000);
+            socket = new Socket(IPAddress, 9000);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
         }

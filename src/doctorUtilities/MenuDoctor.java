@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pojos.Doctor;
+import pojos.Patient;
 import pojos.User;
 
 /**
@@ -23,12 +25,15 @@ import pojos.User;
  * @author agarc
  */
 public class MenuDoctor {
+    
         public static Socket socket;
         public static PrintWriter printWriter;
         public static BufferedReader bf; 
-    public static void ConnectToServer(){
+        
+        
+    public static void ConnectToServer(String IPAddress){
         try{
-            socket = CommunicationWithServer.connectToServer();
+            socket = CommunicationWithServer.connectToServer(IPAddress);
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
             printWriter = new PrintWriter (outputStream,true);
@@ -55,11 +60,27 @@ public class MenuDoctor {
           return logInCheck;
     }
     
-    public static List<String> seeMyPatients(){ //Devuelve el los pacientes en ToString
+    public static List<Patient> seeMyPatients(){ //Devuelve el los pacientes en ToString
         List<String> PatientsList = new ArrayList<>();
         PatientsList = CommunicationWithServer.receivePatientList(bf);
-        return PatientsList;
+        List<Patient> doctorPatients = new ArrayList<>();
         
+        for(int i = 0; i<PatientsList.size(); i++){
+            String line = PatientsList.get(i);
+            Patient pList = CommunicationWithServer.receivePatient(); //HAY QUE VER QUE PONEMOS
+            doctorPatients.add(pList);
+        }
+        return doctorPatients;
+       
+        
+    }
+    
+    public static void AddPatient(Patient p){
+        CommunicationWithServer.sendPatient(printWriter, p);
+    }
+    
+    public static void SendDoctor(Doctor d){
+        CommunicationWithServer.sendDoctor(printWriter, d);
     }
             
     

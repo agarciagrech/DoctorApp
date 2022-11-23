@@ -6,6 +6,7 @@
 package doctorapp;
 
 import doctorUtilities.CommunicationWithServer;
+import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +29,7 @@ import pojos.Patient;
  *
  * @author agarc
  */
-public class RegisterPatientController {
+public class RegisterPatientController implements InterfaceManager{
      @FXML
     private TextField txtname;
 
@@ -95,6 +96,9 @@ public class RegisterPatientController {
         String allergies = txtallergies.getText();
         
         Patient p = new Patient(medCard,name, surname,dob, address,email, diagnosis, allergies, gender, macAddress );
+        MenuDoctor.AddPatient(p);
+        ClearData();
+        
         //CommunicationWithServer.sendPatient(pw,p);
         
 
@@ -110,6 +114,25 @@ public class RegisterPatientController {
         stage.setScene(scene);
         stage.show();
 
+    }
+    
+     @Override
+    public void DataFromPatient(Patient p){
+        
+        
+    }
+    
+    public void ClearData(){
+        this.txtname.clear();
+        this.txtsurname.clear();
+        this.txtaddress.clear();
+        this.txtemail.clear();
+        this.txtmacAddress.clear();
+        this.txtdiagnosis.clear();
+        this.txtallergies.clear();
+        this.txtdob.clear();
+        this.txtmedCardNumber.clear();
+        this.genderChoiceBox.setValue("Male"); //Default value 
     }
 
     

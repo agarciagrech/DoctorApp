@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -73,7 +74,7 @@ public class RegisterDoctorController {
         String email = txtemail.getText();
         
         Doctor d = new Doctor(doctorId,name, surname,email);
-        //Mandar ese doctor al server 
+        MenuDoctor.SendDoctor(d);
 
     }
 }
