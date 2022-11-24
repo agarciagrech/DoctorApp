@@ -27,13 +27,19 @@ import pojos.User;
  * @author agarc
  */
 public class CommunicationWithServer {
-     public static Socket connectToServer(String IPAddress) {
-        Socket socket = new Socket();
+     
+    private static PrintWriter pw = null;
+    private static BufferedReader  bf = null;
+    
+    private static Socket socket = null;
+    
+    public static Socket connectToServer(String IPAddress) {
+        socket = new Socket();
         try {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
-            PrintWriter printWriter = new PrintWriter (outputStream,true);
-            BufferedReader bf = new BufferedReader (new InputStreamReader (inputStream));
+            pw = new PrintWriter (outputStream,true);
+            bf = new BufferedReader (new InputStreamReader (inputStream));
             //System.out.println("Introduce your IP: ");
             //String ip = bf.readLine();
             //printWriter.println(ip); //si queremos mandarle el ip al server
@@ -44,19 +50,19 @@ public class CommunicationWithServer {
         return socket;
     }
      
-     public static void sendDoctor(PrintWriter pw, Doctor doctor) {
+     public static void sendDoctor(Doctor doctor) {
          pw.println(doctor.toString());
     }
     
-    public static void sendPatient(PrintWriter pw,Patient patient) {
+    public static void sendPatient(Patient patient) {
         pw.println(patient.toString());
     }
     
-    public static void sendUser(PrintWriter printWriter, User user) {
-        printWriter.println(user.toString());
+    public static void sendUser(User user) {
+        pw.println(user.toString());
     }
     
-    public static Patient receivePatient(BufferedReader bf){
+    public static Patient receivePatient(){
         Patient p = new Patient();
         try{
             String line = bf.readLine();
@@ -119,10 +125,10 @@ public class CommunicationWithServer {
     }
     
     
-    public static Doctor receiveDoctor(BufferedReader bufferReader){
+    public static Doctor receiveDoctor(){
         Doctor d= new Doctor();
         try{
-            String line = bufferReader.readLine();
+            String line = bf.readLine();
             line=line.replace("{", "");
             line=line.replace("Doctor", "");
             String[] atribute = line.split(",");
@@ -150,10 +156,10 @@ public class CommunicationWithServer {
         return d;
     }
     
-    public static User receiveUser (BufferedReader br){
+    public static User receiveUser (){
         User u = new User();
         try {
-        String line = br.readLine();
+        String line = bf.readLine();
         line=line.replace("{", "");
         line=line.replace("User", "");
         String[] atribute = line.split(",");
@@ -183,7 +189,7 @@ public class CommunicationWithServer {
         return u;
     }
     
-    public static String[] ShowSignals(BufferedReader bf, PrintWriter pw, Patient p){
+    public static String[] ShowSignals(Patient p){
         try {
             String[] filenames = null;
             // Pedimos al server que nos envie la lista de señales:
@@ -201,7 +207,7 @@ public class CommunicationWithServer {
         return null;
     }
     
-    public static List<String> receivePatientList(BufferedReader bf){
+    public static List<String> receivePatientList(){
         List<String> patientList = new ArrayList();
         boolean stop= true;
         try {
@@ -239,10 +245,10 @@ public class CommunicationWithServer {
         }
     }
     
-    public static boolean ReleaseResources(PrintWriter pw, BufferedReader br) {
+    public static boolean ReleaseResources() {
         pw.close();
         try {
-            br.close();
+            bf.close();
         } catch (IOException ex) {
             Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
         }

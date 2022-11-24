@@ -96,10 +96,9 @@ public class UpdatePatientController implements InterfaceManager{
         String allergies = txtallergies.getText();
         
         Patient p = new Patient(medCard,name, surname,dob, address,email, diagnosis, allergies, gender, macAddress );
-        //MenuDoctor.AddPatient(p); //Hacer el update del patient
+        MenuDoctor.UpdatePatient(p); //Hacer el update del patient
         ClearData();
         
-        //CommunicationWithServer.sendPatient(pw,p);
         
 
     }

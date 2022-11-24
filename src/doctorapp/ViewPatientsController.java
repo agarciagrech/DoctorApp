@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.CommunicationWithServer;
 import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +13,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import pojos.Doctor;
 import pojos.Patient;
 
 /**
@@ -91,18 +95,19 @@ public class ViewPatientsController implements Initializable {
 
         stage.setScene(scene);
         stage.show();
-
+        
+        
     }
     
     public void loadPatients(){
-        List<Patient> patientsList = new ArrayList<>();
-        patientsList = MenuDoctor.seeMyPatients();
+        List<String> patientsList = new ArrayList<>();
+        patientsList = CommunicationWithServer.receivePatientList();
         
         int i;
         Patient p;
         
         for(i=0; i<patientsList.size(); i++){
-            p = patientsList.get(i);
+            p = CommunicationWithServer.receivePatient();
             this.Doctorpatients.add(p);
         }
     }
@@ -128,10 +133,17 @@ public class ViewPatientsController implements Initializable {
 
    
 
-    @FXML
+    /*@FXML
     void search(KeyEvent event) {
+         
 
-    }
+            List<Patient> sortList = MenuDoctor.seeMyPatients();
+            sortList.comparatorProperty().bind(patientTable.comparatorProperty());
+            patientTable.setItems(sortList);
+
+        
+
+    }*/
 
     @FXML
     void showPatientSignals(ActionEvent event) {

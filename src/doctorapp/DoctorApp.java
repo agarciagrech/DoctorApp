@@ -26,6 +26,8 @@ import javafx.stage.Stage;
  */
 public class DoctorApp extends Application {
     
+    static MenuDoctor md = new MenuDoctor();
+    
     @Override
     public void start(Stage stage) throws MalformedURLException, IOException {
         URL url = new File("src/doctorapp/primeraPantalla.fxml").toURI().toURL();
@@ -39,7 +41,6 @@ public class DoctorApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-       
     }
     
 }

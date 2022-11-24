@@ -25,65 +25,66 @@ import pojos.User;
  * @author agarc
  */
 public class MenuDoctor {
+
+    public static Socket socket;
+    public static PrintWriter printWriter;
+    public static BufferedReader bf;
     
-        public static Socket socket;
-        public static PrintWriter printWriter;
-        public static BufferedReader bf; 
-        
-        
-    public static void ConnectToServer(String IPAddress){
-        try{
+    
+    
+    public static void initiliazeStreams(String IPAddress) {
+        try {
             socket = CommunicationWithServer.connectToServer(IPAddress);
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
-            printWriter = new PrintWriter (outputStream,true);
-            bf = new BufferedReader (new InputStreamReader (inputStream));
-            
-        }catch(IOException ex) {
+            printWriter = new PrintWriter(outputStream, true);
+            bf = new BufferedReader(new InputStreamReader(inputStream));
+
+        } catch (IOException ex) {
             Logger.getLogger(MenuDoctor.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    }
-    
-    public static boolean logInDoctor(String username, String password) throws IOException{
-          boolean logInCheck = true;
-          User user = new User();
-          user.setUsername(username);
-          user.setPassword(password);
-          
-           CommunicationWithServer.sendUser(printWriter, user);
-           String line = bf.readLine();
-           if(line.equals("Wrong username or password")){
-               logInCheck = false;
-           }else{
-               logInCheck = true; 
-           }
-          return logInCheck;
+        }
     }
     
-    public static List<Patient> seeMyPatients(){ //Devuelve el los pacientes en ToString
+    public void sendInt(int a){
+        MenuDoctor.printWriter.println(a);
+    }
+
+    public static boolean logInDoctor(String username, String password) throws IOException {
+        boolean logInCheck = true;
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+
+        CommunicationWithServer.sendUser(user);
+        String line = bf.readLine();
+        if (line.equals("Wrong username or password")) {
+            logInCheck = false;
+        } else {
+            logInCheck = true;
+        }
+        return logInCheck;
+    }
+
+    /*public static List<Patient> seeMyPatients() { //Devuelve el los pacientes en ToString
         List<String> PatientsList = new ArrayList<>();
         PatientsList = CommunicationWithServer.receivePatientList(bf);
         List<Patient> doctorPatients = new ArrayList<>();
-        
-        for(int i = 0; i<PatientsList.size(); i++){
+
+        for (int i = 0; i < PatientsList.size(); i++) {
             String line = PatientsList.get(i);
             Patient pList = CommunicationWithServer.receivePatient(bf); //HAY QUE VER QUE PONEMOS
             doctorPatients.add(pList);
         }
         return doctorPatients;
-       
-        
+
+    }*/
+
+    public static void UpdatePatient(Patient p) {
+        CommunicationWithServer.sendPatient(p);
     }
-    
-    public static void AddPatient(Patient p){
-        CommunicationWithServer.sendPatient(printWriter, p);
+
+    public static void SendDoctor(Doctor d) {
+        CommunicationWithServer.sendDoctor( d);
     }
-    
-    public static void SendDoctor(Doctor d){
-        CommunicationWithServer.sendDoctor(printWriter, d);
-    }
-            
-    
+
 }
-
-

@@ -68,7 +68,7 @@ public class logInDoctorController {
             infoMessage("Please enter correct username or password", null, "Failed");
         }else{
             try{
-                MenuDoctor.ConnectToServer(IP);
+                MenuDoctor.initiliazeStreams(IP);
                 URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
                 Parent root = FXMLLoader.load(url);    
                 Scene scene = new Scene(root);
