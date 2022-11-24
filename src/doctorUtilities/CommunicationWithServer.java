@@ -207,8 +207,69 @@ public class CommunicationWithServer {
         return null;
     }
     
-    public static List<String> receivePatientList(){
+     public static Patient receiveDoctorsPatients(String line){
+        Patient p = new Patient();
+        //String line = bf.readLine();
+        line=line.replace("{", "");
+        line=line.replace("Patient", "");
+        String[] atribute = line.split(",");
+        SimpleDateFormat  format = new SimpleDateFormat("dd/MM/yyyy");
+        for (int i =0;i <atribute.length; i++){
+            String[] data2 = atribute[i].split("=");
+            for (int j =0;j <data2.length - 1; j++){
+                data2[j]=data2[j].replace(" ", "");
+                switch(data2[j]){
+                    case "medical_card_number":
+                        p.setMedical_card_number(Integer.parseInt(data2[j+1]));
+                        break;
+                    case "name":
+                        p.setName(data2[j+1]);
+                        break;
+                    case "surname":
+                        p.setSurname(data2[j+1]);
+                        break;
+                    case "dob":
+                        try {
+                            p.setDob(format.parse(data2[j+1]));
+                        } catch (ParseException ex) {
+                            Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    case "address":
+                        p.setAddress(data2[j+1]);
+                        break;
+                    case "email":
+                        p.setEmail(data2[j+1]);
+                        break;
+                    case "diagnosis":
+                        p.setDiagnosis(data2[j+1]);
+                        break;
+                    case "allergies":
+                        p.setAllergies(data2[j+1]);
+                        break;
+                    case "gender":
+                        p.setGender(data2[j+1]);
+                        break;
+                    case "userId":
+                        p.setUserId(Integer.parseInt(data2[j+1]));
+                        break;
+                    case "macAddress":
+                        p.setMacAddress(data2[j+1]);
+                        break;
+                }
+            }
+        }
+        System.out.println("Patient received:");
+        System.out.println(p.toString());
+        return p; 
+    }
+    
+    
+    public static List<Patient> receivePatientList(){
         List<String> patientList = new ArrayList();
+        List<Patient> myPatients = new ArrayList();
+        Patient p = null;
+        String patient;
         boolean stop= true;
         try {
             while(stop){
@@ -217,6 +278,7 @@ public class CommunicationWithServer {
                    stop=true;
                    System.out.println(line);
                    patientList.add(line);
+                   
                }else{
                    stop=false;
                }
@@ -224,8 +286,16 @@ public class CommunicationWithServer {
         } catch (IOException ex) {
             Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return patientList;
+        for (int i=0; i<patientList.size(); i++){
+            patient = patientList.get(i);
+            p = receiveDoctorsPatients(patient);
+            myPatients.add(p);
+        }
+        
+        return myPatients;
     }
+    
+     
     
     public static void exitFromServer(InputStream inputStream, OutputStream outputStream, Socket socket ){
         try{

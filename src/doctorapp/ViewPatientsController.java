@@ -100,14 +100,14 @@ public class ViewPatientsController implements Initializable {
     }
     
     public void loadPatients(){
-        List<String> patientsList = new ArrayList<>();
+        List<Patient> patientsList = new ArrayList();
         patientsList = CommunicationWithServer.receivePatientList();
         
         int i;
         Patient p;
         
         for(i=0; i<patientsList.size(); i++){
-            p = CommunicationWithServer.receivePatient();
+            p = patientsList.get(i);
             this.Doctorpatients.add(p);
         }
     }
