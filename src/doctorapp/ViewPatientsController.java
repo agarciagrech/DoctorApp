@@ -116,7 +116,7 @@ public class ViewPatientsController implements Initializable {
     void editPatient(ActionEvent event) throws IOException {
         sc = new SceneChanger();
         Patient chosenPatient = this.patientTable.getSelectionModel().getSelectedItem();
-        RegisterPatientController controller = new RegisterPatientController();
+        UpdatePatientController controller = new UpdatePatientController();
         sc.ChangeSceneWithPatient(event, "registerPatient.fxml", chosenPatient, controller);
 
     }

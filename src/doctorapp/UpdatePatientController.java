@@ -29,7 +29,7 @@ import pojos.Patient;
  *
  * @author agarc
  */
-public class RegisterPatientController implements InterfaceManager{
+public class UpdatePatientController implements InterfaceManager{
      @FXML
     private TextField txtname;
 
@@ -37,7 +37,7 @@ public class RegisterPatientController implements InterfaceManager{
     private ChoiceBox<String> genderChoiceBox;
 
     @FXML
-    private Button registerPatientButton;
+    private Button updatePatientButton;
 
     @FXML
     private TextField txtdob;
@@ -78,7 +78,7 @@ public class RegisterPatientController implements InterfaceManager{
     private Button exitButton;
 
     @FXML
-    void addPatient(ActionEvent event) {
+    void updatePatient(ActionEvent event) {
         ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female");
         genderChoiceBox.setItems(genderList);
         genderChoiceBox.setValue("Male");
@@ -96,7 +96,7 @@ public class RegisterPatientController implements InterfaceManager{
         String allergies = txtallergies.getText();
         
         Patient p = new Patient(medCard,name, surname,dob, address,email, diagnosis, allergies, gender, macAddress );
-        MenuDoctor.AddPatient(p);
+        //MenuDoctor.AddPatient(p); //Hacer el update del patient
         ClearData();
         
         //CommunicationWithServer.sendPatient(pw,p);

@@ -22,7 +22,7 @@ import pojos.Patient;
  */
 public class SceneChanger {
     
-    public void ChangeSceneWithPatient(ActionEvent event, String viewName, Patient patient,RegisterPatientController controllerClass) throws IOException{
+    public void ChangeSceneWithPatient(ActionEvent event, String viewName, Patient patient,UpdatePatientController controllerClass) throws IOException{
         
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(viewName));
@@ -47,4 +47,28 @@ public class SceneChanger {
         window.show();
         
     }
+    
+   public void ChangeSceneWithSignal(ActionEvent event, String viewName, Patient patient, SignalsPatientController controllerClass) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(viewName));
+        Parent parent = null;
+
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(parent);
+
+        // access the controller class and preload
+        controllerClass = loader.getController();
+        controllerClass.DataFromPatient(patient);
+
+        // get the stage from the event that was passed in
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+   }
 }

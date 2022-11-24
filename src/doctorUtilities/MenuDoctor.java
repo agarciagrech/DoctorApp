@@ -67,7 +67,7 @@ public class MenuDoctor {
         
         for(int i = 0; i<PatientsList.size(); i++){
             String line = PatientsList.get(i);
-            Patient pList = CommunicationWithServer.receivePatient(); //HAY QUE VER QUE PONEMOS
+            Patient pList = CommunicationWithServer.receivePatient(bf); //HAY QUE VER QUE PONEMOS
             doctorPatients.add(pList);
         }
         return doctorPatients;
