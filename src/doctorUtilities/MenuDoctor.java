@@ -32,7 +32,7 @@ public class MenuDoctor {
     
     
     
-    public static void initiliazeStreams(String IPAddress) {
+   /* public static void initiliazeStreams(String IPAddress) {
         try {
             socket = CommunicationWithServer.connectToServer(IPAddress);
             InputStream inputStream = socket.getInputStream();
@@ -79,12 +79,5 @@ public class MenuDoctor {
 
     }*/
 
-    public static void UpdatePatient(Patient p) {
-        CommunicationWithServer.sendPatient(p);
-    }
-
-    public static void SendDoctor(Doctor d) {
-        CommunicationWithServer.sendDoctor( d);
-    }
 
 }

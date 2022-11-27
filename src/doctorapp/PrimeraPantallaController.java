@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.menu;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -25,9 +27,15 @@ public class PrimeraPantallaController {
     
     @FXML
     private Button logInButton;
+    
+    @FXML
+    private TextField ipAddress;
 
     @FXML
     void logIn(ActionEvent event) throws IOException {
+        
+        String ip = ipAddress.getText();
+        menu.initiliazeStreams(ip);
         URL url = new File("src/doctorapp/logInDoctor.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);

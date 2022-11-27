@@ -6,8 +6,11 @@
 package pojos;
 
 import java.io.Serializable;
+import java.rmi.NotBoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -33,8 +36,16 @@ public class Patient implements Serializable{
     public Patient() {
     }
 
+    public Patient(Integer medical_card_number, String name, String surname) {
+        this.medical_card_number = medical_card_number;
+        this.name = name;
+        this.surname = surname;
+    }
     
-    public Patient(Integer medical_card_number, String name, String surname, Date dob, String address, String email, String diagnosis, String allergies, String gender, Integer userId, String macAddress) {
+    
+
+    
+    public Patient(String name, String surname, Integer medical_card_number, Date dob, String address, String email, String diagnosis, String allergies, String gender, Integer userId, String macAddress) {
         this.medical_card_number = medical_card_number;
         this.name = name;
         this.surname = surname;
@@ -106,8 +117,14 @@ public class Patient implements Serializable{
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email) throws NotBoundException {
+        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
+        Matcher mather = pattern.matcher(email);
+        if (mather.find() == true) {
+            this.email = email;
+        } else {
+            throw new NotBoundException("Not valid email");
+        }
     }
 
     public String getDiagnosis() {
@@ -130,8 +147,10 @@ public class Patient implements Serializable{
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setGender(String gender) throws NotBoundException {
+        
+            this.gender = gender;
+        
     }
 
     public Integer getUserId() {

@@ -15,15 +15,14 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="txtname" layoutX="23.0" layoutY="150.0" promptText="Name" />
+            <TextField fx:id="txtname" layoutX="186.0" layoutY="94.0" promptText="Name" />
             <Button fx:id="registerDoctorButton" layoutX="495.0" layoutY="361.0" mnemonicParsing="false" onAction="#registerDoctor" prefHeight="31.0" prefWidth="100.0" text="Register Doctor" />
             <Button fx:id="backMenuButton" layoutX="23.0" layoutY="14.0" mnemonicParsing="false" onAction="#backtoMenu" text="Back to Menu" />
             <Label fx:id="nameError" layoutX="186.0" layoutY="59.0" />
             <Label fx:id="ageError" layoutX="479.0" layoutY="107.0" />
-            <TextField fx:id="txtsurname" layoutX="23.0" layoutY="200.0" promptText="Surname" />
-            <TextField fx:id="txtId" layoutX="251.0" layoutY="200.0" promptText="Id" />
+            <TextField fx:id="txtsurname" layoutX="186.0" layoutY="144.0" promptText="Surname" />
             <Button fx:id="exitButton" layoutX="17.0" layoutY="361.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="31.0" prefWidth="100.0" text="Exit" />
-            <TextField fx:id="txtemail1" layoutX="251.0" layoutY="150.0" promptText="Email" />
+            <TextField fx:id="txtemail" layoutX="186.0" layoutY="187.0" promptText="Email" />
          </children>
       </AnchorPane>
    </children>

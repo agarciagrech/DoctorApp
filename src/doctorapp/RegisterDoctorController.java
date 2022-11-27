@@ -6,6 +6,9 @@
 package doctorapp;
 
 import doctorUtilities.MenuDoctor;
+import doctorUtilities.menu;
+import static doctorapp.logInDoctorController.infoMessage;
+import static doctorapp.logInDoctorController.showAlert;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -15,10 +18,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import pojos.Doctor;
 
 /**
@@ -43,8 +48,7 @@ public class RegisterDoctorController {
     @FXML
     private TextField txtemail;
 
-   @FXML
-    private TextField txtId;
+   
 
     @FXML
     private Button exitButton;
@@ -67,14 +71,63 @@ public class RegisterDoctorController {
     }
 
     @FXML
-    void registerDoctor(ActionEvent event) {
+    void registerDoctor(ActionEvent event) throws IOException {
+         Window owner = registerDoctorButton.getScene().getWindow();
+        if(txtname.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter the doctor's name");
+            return;
+        }
+        if(txtsurname.getText().isEmpty()){
+             showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter the doctor's surname");
+             return;
+        }
+        
+        if(txtemail.getText().isEmpty()){
+             showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter the doctor's email");
+             return;
+        }
         String name = txtname.getText();
         String surname = txtsurname.getText();
-        Integer doctorId = Integer.parseInt(txtId.getText());
+        
         String email = txtemail.getText();
         
-        Doctor d = new Doctor(doctorId,name, surname,email);
-        MenuDoctor.SendDoctor(d);
+        Boolean correct = menu.createDoctor(name, surname, email);
+        
+        if(!correct){
+             infoMessage("Please enter the data correctly", null, "Failed");
+        }else{
+             try{
+                
+                URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
+                Parent root = FXMLLoader.load(url);    
+                Scene scene = new Scene(root);
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+                stage.setScene(scene);
+                stage.show();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+        
 
     }
+    
+     public static void infoMessage(String infoMessage, String headerText, String title) {
+       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setContentText(infoMessage);
+           alert.setTitle(title);
+           alert.setHeaderText(headerText);
+           alert.showAndWait();
+       }
+
+       public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message ) {
+       Alert alert = new Alert(alertType);
+       alert.setTitle(title);
+       alert.setHeaderText(null);
+       alert.setContentText(message);
+       alert.initOwner(owner);
+       alert.show();
+       }
 }

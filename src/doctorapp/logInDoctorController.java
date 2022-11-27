@@ -5,8 +5,9 @@
  */
 package doctorapp;
 
-import doctorUtilities.CommunicationWithServer;
+
 import doctorUtilities.MenuDoctor;
+import doctorUtilities.menu;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +49,8 @@ public class logInDoctorController {
     }
 
     @FXML
-    void logIn(ActionEvent event) throws  IOException {
+    void logIn(ActionEvent event) throws  IOException, Exception {
+        
         Window owner = logInButton.getScene().getWindow();
         if(doctorUsername.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter your username");
@@ -59,16 +61,21 @@ public class logInDoctorController {
              return;
         }
         
+        
+         
+        /*String IP = IPAddress.getText();
+        menu.initiliazeStreams(IP);*/
+        
         String username = doctorUsername.getText();
         String password = doctorPassword.getText();
-        String IP = IPAddress.getText();
-        Boolean logInCheck = MenuDoctor.logInDoctor(username, password);
+      
+        Boolean logInCheck = menu.login(username, password);
         
         if(!logInCheck){
             infoMessage("Please enter correct username or password", null, "Failed");
         }else{
             try{
-                MenuDoctor.initiliazeStreams(IP);
+                
                 URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
                 Parent root = FXMLLoader.load(url);    
                 Scene scene = new Scene(root);

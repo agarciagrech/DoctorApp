@@ -76,10 +76,8 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor{" + "doctorId=" + doctorId + ", dname=" + dname + ", dsurname=" + dsurname + ", demail=" + demail +  '}';
+        return "Doctor{" + "id=" + doctorId + ", name=" + dname + ", surname=" + dsurname + ", email=" + demail + '}';
     }
-    
-    
     
     
 }

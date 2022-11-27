@@ -5,7 +5,7 @@
  */
 package doctorapp;
 
-import doctorUtilities.CommunicationWithServer;
+
 import doctorUtilities.MenuDoctor;
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +96,7 @@ public class UpdatePatientController implements InterfaceManager{
         String allergies = txtallergies.getText();
         
         Patient p = new Patient(medCard,name, surname,dob, address,email, diagnosis, allergies, gender, macAddress );
-        MenuDoctor.UpdatePatient(p); //Hacer el update del patient
+        //MenuDoctor.UpdatePatient(p); //Hacer el update del patient
         ClearData();
         
         

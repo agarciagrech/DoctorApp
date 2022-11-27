@@ -5,8 +5,9 @@
  */
 package doctorapp;
 
-import doctorUtilities.CommunicationWithServer;
+
 import doctorUtilities.MenuDoctor;
+import doctorUtilities.menu;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -101,7 +102,7 @@ public class ViewPatientsController implements Initializable {
     
     public void loadPatients(){
         List<Patient> patientsList = new ArrayList();
-        patientsList = CommunicationWithServer.receivePatientList();
+        patientsList = menu.doctorsPatients();
         
         int i;
         Patient p;

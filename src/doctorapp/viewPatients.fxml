@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="doctorapp.ViewPatientsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorapp.ViewPatientsController">
    <children>
       <AnchorPane id="AnchorPane" layoutX="4.0" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -19,10 +16,8 @@
                   <TableColumn fx:id="surnameCol" prefWidth="233.0" text="Surname" />
                </columns>
             </TableView>
-            <TextField fx:id="filtro" layoutX="178.0" layoutY="22.0" onKeyReleased="#search" prefHeight="31.0" prefWidth="365.0" />
             <Button fx:id="editButton" layoutX="300.0" layoutY="341.0" mnemonicParsing="false" onAction="#editPatient" prefHeight="26.0" prefWidth="102.0" text="Update Patient" />
             <Button fx:id="exitButton" layoutX="78.0" layoutY="345.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="58.0" text="Exit " />
-            <Label layoutX="78.0" layoutY="28.0" prefHeight="18.0" prefWidth="96.0" text="Search Patients:" />
             <Button fx:id="showSignals" layoutX="448.0" layoutY="341.0" mnemonicParsing="false" onAction="#showPatientSignals" prefHeight="26.0" prefWidth="96.0" text="Show Signals" />
             <Button fx:id="backMenuOption" layoutX="172.0" layoutY="344.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="96.0" text="Back to Menu" />
          </children>
