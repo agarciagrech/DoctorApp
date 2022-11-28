@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,18 +42,10 @@ import pojos.Patient;
  *
  * @author agarc
  */
-public class ViewPatientsController implements Initializable {
+public class ViewPatientsController  {
     @FXML
     private TableView<Patient> patientTable;
 
-    @FXML
-    private TableColumn<Patient, Integer> medCardCol;
-
-    @FXML
-    private TableColumn<Patient, String> nameCol;
-
-    @FXML
-    private TableColumn<Patient, String> surnameCol;
 
     @FXML
     private TextField filtro;
@@ -69,23 +62,13 @@ public class ViewPatientsController implements Initializable {
     @FXML
     private Button backMenuOption;
     
-    private ObservableList<Patient> Doctorpatients = FXCollections.observableArrayList();
-    FilteredList filter = new FilteredList(Doctorpatients, e -> true);
+    @FXML
+    private Button showPatientsButton;
+    
+    
     private static SceneChanger sc;
     
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-       this.editButton.setDisable(true);
-       this.showSignals.setDisable(true);
-       
-       medCardCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("medical_card_number"));
-       nameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
-       surnameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("surname"));
-       
-       patientTable.setEditable(true);
-       loadPatients();
-       patientTable.setItems(Doctorpatients);
-    }
+    
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -100,30 +83,57 @@ public class ViewPatientsController implements Initializable {
         
     }
     
-    public void loadPatients(){
-        List<Patient> patientsList = new ArrayList();
-        patientsList = menu.doctorsPatients();
-        
-        int i;
-        Patient p;
-        
-        for(i=0; i<patientsList.size(); i++){
-            p = patientsList.get(i);
-            this.Doctorpatients.add(p);
+    @FXML
+    void showPatients(ActionEvent event) {
+        List<String> patientsList = menu.doctorsPatients();
+        List<Patient> pList = new ArrayList();
+        for(int i=0; i<patientsList.size(); i++){
+            Patient p = new Patient();
+            String line = patientsList.get(i);
+            line = line.replace("Patient:", "");
+            String[] atribute = line.split("/");
+            String name = atribute[0];
+            String surname = atribute[1];
+            String medCard = atribute[2];
+            p.setName(name);
+            p.setSurname(surname);
+            p.setMedical_card_number(Integer.parseInt(medCard));
+            pList.add(p);
+            patientTable.getItems().addAll(p);
         }
+        
+
     }
     
-    public void SelectedPatient(){
+    public void initialize() {
+       patientTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+       
+       TableColumn<Patient,String> medCardCol = new TableColumn<>("MedCard");
+       TableColumn<Patient,String> nameCol = new TableColumn<>("Name");
+       TableColumn<Patient,String> surnameCol = new TableColumn<>("Surname");
+       
+       medCardCol.setCellValueFactory(data -> new SimpleStringProperty(Integer.toString(data.getValue().getMedical_card_number())));
+       nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+       surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
+       
+       patientTable.getColumns().addAll(medCardCol, nameCol, surnameCol);
+       
+    }
+    
+    
+    
+    /*public void SelectedPatient(){
        this.editButton.setDisable(false);
        this.showSignals.setDisable(false);
-    }
+    }*/
 
     @FXML
     void editPatient(ActionEvent event) throws IOException {
         sc = new SceneChanger();
-        Patient chosenPatient = this.patientTable.getSelectionModel().getSelectedItem();
-        UpdatePatientController controller = new UpdatePatientController();
-        sc.ChangeSceneWithPatient(event, "registerPatient.fxml", chosenPatient, controller);
+        //Patient chosenPatient = this.patientTable.getSelectionModel().getSelectedItem();
+        
+        //UpdatePatientController controller = new UpdatePatientController();
+        //sc.ChangeSceneWithPatient(event, "registerPatient.fxml", chosenPatient, controller);
 
     }
 

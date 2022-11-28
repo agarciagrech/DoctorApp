@@ -151,17 +151,12 @@ public class menu {
         } while(true);
     }
     
-    public static List<Patient> doctorsPatients(){
+    public static List<String> doctorsPatients(){
         pw.println(2);
-        List<Patient> patients = new ArrayList();
+        
         List<String> pList = utilities.CommunicationWithServer.receivePatientList(br);
         Patient p = new Patient();
-        for(int i = 0; i<pList.size(); i++){
-            p = utilities.CommunicationWithServer.receivePatient(br);
-            patients.add(p);
-            
-        }
-        return patients;
+        return pList;
     }    
 
    
