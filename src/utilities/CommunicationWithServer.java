@@ -368,7 +368,6 @@ public class CommunicationWithServer {
         try {
             List<String> filenames = new ArrayList();
             
-            // VOY A ASUMIR QUE SE ENVIAN LOS FILENAME SEPARADOS POR \n
             int size = Integer.parseInt(bf.readLine()); //aqui coge el size que se envia 
             for (int i=0; i<size; i++){
                 filenames.add(bf.readLine());

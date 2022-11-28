@@ -10,6 +10,7 @@ import doctorUtilities.MenuDoctor;
 import doctorUtilities.menu;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +161,16 @@ public class ViewPatientsController  {
     }*/
 
     @FXML
-    void showPatientSignals(ActionEvent event) {
+    void showPatientSignals(ActionEvent event) throws IOException {
+        menu.showSignnalList();
+        URL url1 = new File("src/doctorapp/ShowSignals.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url1);    
+        Scene scene = new Scene(root);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.show();
+        
 
     }
 

@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 /**
  *
  * @author agarc
@@ -45,12 +46,24 @@ public class editPatientController {
      
     @FXML
     private Button backButton;
+    
+    @FXML
+    private Button selectButton;
+    
+      @FXML
+    void sendMedCard(ActionEvent event) {
+        
+        
+
+    }
+    
+    
 
     @FXML
     void updateAllergies(ActionEvent event) {
        int medCard = Integer.parseInt(txtMedCard.getText());
        String newAllergy = txtAllergies.getText();
-       menu.editPatientAllergies(medCard, newAllergy);
+       menu.editPatientAllergies(newAllergy,medCard);
        
 
     }
@@ -59,7 +72,7 @@ public class editPatientController {
     void updateDiagnosis(ActionEvent event) {
        int medCard = Integer.parseInt(txtMedCard.getText());
        String newDiagnosis = txtDiagnosis.getText();
-       menu.editPatientDiagnosis(medCard, newDiagnosis);
+       menu.editPatientDiagnosis(newDiagnosis,medCard);
     }
     
      @FXML

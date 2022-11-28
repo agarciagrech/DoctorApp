@@ -158,7 +158,20 @@ public class menu {
         Patient p = new Patient();
         return pList;
     }
-    
+     public static void showSignnalList(){
+        pw.println(4);
+        
+    }
+     public static List<String> getSignalList(int medcard){
+         pw.println(medcard);
+         List<String> sList = utilities.CommunicationWithServer.ShowSignals(br, pw);
+        return sList;
+     }
+    public static Signal selectsignal(String filename){
+        pw.println(filename);
+        Signal s = utilities.CommunicationWithServer.receiveSignal(br);
+        return s;
+    }
     public static void editPatient(){
         pw.println(3);
        
@@ -167,21 +180,33 @@ public class menu {
     public static void exitEditPatient(){
         pw.println(0);
     }
+    
+    public static void sendMedCard(Integer medCard){
+       
+        
+    }
 
-    public static void editPatientDiagnosis(Integer medCard, String newDiagnosis){
-      pw.println(1);
+    public static void editPatientDiagnosis(String newDiagnosis, Integer medCard){
+       pw.println(1);
       utilities.CommunicationWithServer.receivePatientList(br);
-      pw.println(medCard);
-      Patient p = utilities.CommunicationWithServer.receivePatient(br);
+       pw.println(medCard);
+       Patient p = utilities.CommunicationWithServer.receivePatient(br);
+     
+      
+     
+      
       p.setDiagnosis(newDiagnosis);
       utilities.CommunicationWithServer.sendPatient(pw, p);
     }
 
-    public static void editPatientAllergies(Integer medCard, String newAllergy){
+    public static void editPatientAllergies(String newAllergy, Integer medCard){
         pw.println(2);
         utilities.CommunicationWithServer.receivePatientList(br);
         pw.println(medCard);
         Patient p = utilities.CommunicationWithServer.receivePatient(br);
+        
+       
+        
         p.setAllergies(newAllergy);
         utilities.CommunicationWithServer.sendPatient(pw, p);
     }    
@@ -232,7 +257,7 @@ public class menu {
     }
     
 
-    public static boolean createDoctor(String name, String surname, String email) throws IOException{
+    public static String createDoctor(String name, String surname, String email) throws IOException{
         
         //Doctor doctor = utilities.CommunicationWithServer.receiveDoctor(br);
         pw.println(1);
@@ -246,24 +271,20 @@ public class menu {
         User user = utilities.CommunicationWithServer.receiveUser(br);
         String userPassword = user.getPassword();
         String userName = user.getUsername();
-      
-        sendUserData( userName,userPassword);
+        String userpass= "Username: " + userName +"\n Password: " + userPassword;
+        
         String line = br.readLine();
         if (line.equals("Doctor successfully registered")){
             registerCorrect = true;
+            return userpass;
         } else{
             registerCorrect = false;
+            return null;
         }
-        return registerCorrect;
+        
     }
     
-    public static User sendUserData(String username, String password){
-        User u = new User();
-        u.setUsername(username);
-        u.setPassword(password);
-        
-        return u;
-    }
+   
     
     
     private static void showSignals (BufferedReader br, PrintWriter pw) throws Exception{
@@ -276,16 +297,9 @@ public class menu {
         for(int i=0; i<signalFilenames.size();i++){
             System.out.println(signalFilenames.get(i));
         }
-        System.out.println("hola");
-        //Choose a signal
-        /*
-        List<String> signalList = new ArrayList<>();
-        Signal signal = null;
-        while(signalList.isEmpty()){*/
-            //System.out.println(signalList.toString());
+       
             System.out.println("Introduce filename of the signal:");
             String signalName = sc.next();
-           // Signal s = db.jdbc.SQLiteSignalManager.selectSignalByName
             pw.println(signalName);
            
             String signal = br.readLine();
@@ -293,6 +307,8 @@ public class menu {
             
         //}
     }
+    
+   
     
     private static void editPatient (BufferedReader bf,PrintWriter pw, int medcard) throws Exception{
         Scanner sc = new Scanner (System.in);

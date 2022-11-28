@@ -91,13 +91,13 @@ public class RegisterDoctorController {
         
         String email = txtemail.getText();
         
-        Boolean correct = menu.createDoctor(name, surname, email);
+        String usernamePass = menu.createDoctor(name, surname, email);
         
-        if(!correct){
+        if(usernamePass==null){
              infoMessage("Please enter the data correctly", null, "Failed");
         }else{
              try{
-                
+                showAlert2(Alert.AlertType.INFORMATION, owner,"Your Username and Password are",usernamePass);
                 URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
                 Parent root = FXMLLoader.load(url);    
                 Scene scene = new Scene(root);
@@ -123,6 +123,16 @@ public class RegisterDoctorController {
        }
 
        public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message ) {
+       Alert alert = new Alert(alertType);
+       alert.setTitle(title);
+       alert.setHeaderText(null);
+       alert.setContentText(message);
+       alert.initOwner(owner);
+       alert.show();
+       }
+       
+
+       public static void showAlert2(Alert.AlertType alertType, Window owner, String title, String message ) {
        Alert alert = new Alert(alertType);
        alert.setTitle(title);
        alert.setHeaderText(null);
