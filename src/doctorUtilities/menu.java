@@ -157,6 +157,33 @@ public class menu {
         List<String> pList = utilities.CommunicationWithServer.receivePatientList(br);
         Patient p = new Patient();
         return pList;
+    }
+    
+    public static void editPatient(){
+        pw.println(3);
+       
+    }
+    
+    public static void exitEditPatient(){
+        pw.println(0);
+    }
+
+    public static void editPatientDiagnosis(Integer medCard, String newDiagnosis){
+      pw.println(1);
+      utilities.CommunicationWithServer.receivePatientList(br);
+      pw.println(medCard);
+      Patient p = utilities.CommunicationWithServer.receivePatient(br);
+      p.setDiagnosis(newDiagnosis);
+      utilities.CommunicationWithServer.sendPatient(pw, p);
+    }
+
+    public static void editPatientAllergies(Integer medCard, String newAllergy){
+        pw.println(2);
+        utilities.CommunicationWithServer.receivePatientList(br);
+        pw.println(medCard);
+        Patient p = utilities.CommunicationWithServer.receivePatient(br);
+        p.setAllergies(newAllergy);
+        utilities.CommunicationWithServer.sendPatient(pw, p);
     }    
 
    

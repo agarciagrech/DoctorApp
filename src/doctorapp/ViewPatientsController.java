@@ -129,11 +129,14 @@ public class ViewPatientsController  {
 
     @FXML
     void editPatient(ActionEvent event) throws IOException {
-        sc = new SceneChanger();
-        //Patient chosenPatient = this.patientTable.getSelectionModel().getSelectedItem();
-        
-        //UpdatePatientController controller = new UpdatePatientController();
-        //sc.ChangeSceneWithPatient(event, "registerPatient.fxml", chosenPatient, controller);
+        menu.editPatient();
+        URL url = new File("src/doctorapp/editPatient.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);    
+        Scene scene = new Scene(root);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.show();
 
     }
 
