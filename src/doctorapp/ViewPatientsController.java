@@ -66,6 +66,9 @@ public class ViewPatientsController  {
     @FXML
     private Button showPatientsButton;
     
+     @FXML
+    private Button deleteButton;
+    
     
     private static SceneChanger sc;
     
@@ -74,6 +77,20 @@ public class ViewPatientsController  {
     @FXML
     void back(ActionEvent event) throws IOException {
         URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);    
+        Scene scene = new Scene(root);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.show();
+        
+        
+    }
+    
+    @FXML
+    void delete(ActionEvent event) throws IOException {
+        menu.Delete();
+        URL url = new File("src/doctorapp/deletePatient.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

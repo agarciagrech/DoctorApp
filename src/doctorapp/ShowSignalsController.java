@@ -34,6 +34,9 @@ public class ShowSignalsController {
 
     @FXML
     private Button consultPatients;
+    
+    @FXML
+    private Button showButton;
 
     @FXML
     private TextField txtMedCard;
@@ -56,6 +59,7 @@ public class ShowSignalsController {
 
     @FXML
     void showPatients(ActionEvent event) throws IOException {
+        menu.BacktToShowPatients();
         URL url = new File("src/doctorapp/viewPatients.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
@@ -73,11 +77,17 @@ public class ShowSignalsController {
         List<String> list = menu.getSignalList(medcard);
         
         showAlert(Alert.AlertType.INFORMATION,owner,"Signals of patient",list.toString());
-        
+       
+    }
+    
+    @FXML
+    void showSignal(ActionEvent event){
+        Window owner = showButton.getScene().getWindow();
         String filename = txtFIlename.getText();
         Signal s = menu.selectsignal(filename);
         showAlert(Alert.AlertType.INFORMATION,owner,"Signals",s.toString());
-    }
+    }  
+    
     public static void infoMessage(String infoMessage, String headerText, String title) {
        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
            alert.setContentText(infoMessage);

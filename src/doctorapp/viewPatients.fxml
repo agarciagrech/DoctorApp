@@ -14,6 +14,7 @@
             <Button fx:id="showSignals" layoutX="448.0" layoutY="341.0" mnemonicParsing="false" onAction="#showPatientSignals" prefHeight="26.0" prefWidth="96.0" text="Show Signals" />
             <Button fx:id="backMenuOption" layoutX="172.0" layoutY="344.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="96.0" text="Back to Menu" />
             <Button fx:id="showPatientsButton" layoutX="253.0" layoutY="26.0" mnemonicParsing="false" onAction="#showPatients" prefHeight="26.0" prefWidth="114.0" text="Show patients " />
+            <Button fx:id="deleteButton" layoutX="444.0" layoutY="27.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="70.0" text="Delete" />
          </children>
       </AnchorPane>
    </children>

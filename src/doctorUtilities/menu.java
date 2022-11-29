@@ -151,6 +151,22 @@ public class menu {
         } while(true);
     }
     
+    public static void BacktToShowPatients(){
+        pw.println(2);
+    }
+    public static void BacktTomenu(){
+        pw.println(0);
+    }
+    
+    public static void Delete(){
+        pw.println(5);
+    }
+    
+    public static void DeletePatient(Integer medCard){
+        List<String> pList = utilities.CommunicationWithServer.receivePatientList(br);
+        pw.println(medCard);
+    }
+    
     public static List<String> doctorsPatients(){
         pw.println(2);
         
@@ -160,7 +176,7 @@ public class menu {
     }
      public static void showSignnalList(){
         pw.println(4);
-        
+        List<String> pList = utilities.CommunicationWithServer.receivePatientList(br);
     }
      public static List<String> getSignalList(int medcard){
          pw.println(medcard);

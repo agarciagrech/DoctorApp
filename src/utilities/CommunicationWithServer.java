@@ -190,7 +190,7 @@ public class CommunicationWithServer {
                         s.setSignalId(Integer.parseInt(data2[j+1]));
                         break;
                     case "ECG_values":
-                        //no estoy segura de si están separados por una coma o un espacio
+                        data2[j+1].replace("[","").replace("]", "");
                         String[] separatedString = data2[j+1].split(",");
                         List<Integer> ECG = new ArrayList();
                         for(int k=0; k<separatedString.length; k++){
@@ -200,9 +200,11 @@ public class CommunicationWithServer {
                         break;
 
                     case "EMG_values":
+                        data2[j+1].replace("[","").replace("]", "");
                         separatedString = data2[j+1].split(",");
                        List<Integer> EMG = new ArrayList();
                         for(int k=0; k<separatedString.length; k++){
+                            //separatedString[k].replace("[","").replace("]", "");
                             EMG.add(k, Integer.parseInt(separatedString[k]));
                         }
                         s.setEMG_values(EMG);

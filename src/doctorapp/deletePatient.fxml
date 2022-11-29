@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="doctorapp.DeletePatientController">
+   <children>
+      <Button fx:id="consult" layoutX="83.0" layoutY="86.0" mnemonicParsing="false" onAction="#consultPatients" text="Consult Patients" />
+      <TextField fx:id="medCard" layoutX="239.0" layoutY="86.0" promptText="Medical card" />
+      <Button fx:id="deleteButton" layoutX="83.0" layoutY="175.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="92.0" text="Delete" />
+      <Button fx:id="backButton" layoutX="103.0" layoutY="237.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="92.0" text="Back" />
+   </children>
+</AnchorPane>

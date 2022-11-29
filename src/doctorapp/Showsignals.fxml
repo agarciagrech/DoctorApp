@@ -14,5 +14,6 @@
       <TextField fx:id="txtMedCard" layoutX="206.0" layoutY="69.0" promptText="Medical card" />
       <Text layoutX="193.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduce the name of the signal:" />
       <Button fx:id="consultFilenames" layoutX="67.0" layoutY="187.0" mnemonicParsing="false" onAction="#showFilenames" text="Consult Filenames " />
+      <Button fx:id="showButton" layoutX="67.0" layoutY="241.0" mnemonicParsing="false" onAction="#showSignal" text="Show signal" />
    </children>
 </AnchorPane>
