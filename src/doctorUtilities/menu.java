@@ -57,6 +57,7 @@ public class menu {
 
                   
     public static boolean login(String username, String password) throws Exception{
+        pw.println(2);
         boolean logInCorrect = false;
         User user = new User();
         user.setPassword(password);
