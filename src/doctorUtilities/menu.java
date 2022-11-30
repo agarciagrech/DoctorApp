@@ -184,9 +184,17 @@ public class menu {
          List<String> sList = utilities.CommunicationWithServer.ShowSignals(br, pw);
         return sList;
      }
-    public static Signal selectsignal(String filename){
+    public static String selectsignal(String filename){
         pw.println(filename);
-        Signal s = utilities.CommunicationWithServer.receiveSignal(br);
+        String s = null;
+        try {
+            /*
+            Signal s = utilities.CommunicationWithServer.receiveSignal(br);
+            return s;*/
+            s = br.readLine();
+        } catch (IOException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return s;
     }
     public static void editPatient(){

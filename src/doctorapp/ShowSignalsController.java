@@ -84,8 +84,8 @@ public class ShowSignalsController {
     void showSignal(ActionEvent event){
         Window owner = showButton.getScene().getWindow();
         String filename = txtFIlename.getText();
-        Signal s = menu.selectsignal(filename);
-        showAlert(Alert.AlertType.INFORMATION,owner,"Signals",s.toString());
+        String s = menu.selectsignal(filename);
+        showAlert(Alert.AlertType.INFORMATION,owner,"Signals",s);
     }  
     
     public static void infoMessage(String infoMessage, String headerText, String title) {

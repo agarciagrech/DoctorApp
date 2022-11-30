@@ -175,7 +175,7 @@ public class CommunicationWithServer {
         Signal s = new Signal();
         try {
         String line = br.readLine();
-        //System.out.println(line);
+        System.out.println(line);
         line=line.replace("{", "");
         line=line.replace("Signal", "");
         String[] atribute = line.split(",");
@@ -190,25 +190,31 @@ public class CommunicationWithServer {
                         s.setSignalId(Integer.parseInt(data2[j+1]));
                         break;
                     case "ECG_values":
-                        data2[j+1].replace("[","").replace("]", "");
+                        //data2[j+1]=data2[j+1].replace("[","").replace("]", "");
                         String[] separatedString = data2[j+1].split(",");
                         List<Integer> ECG = new ArrayList();
                         for(int k=0; k<separatedString.length; k++){
+                            separatedString[k]=separatedString[k].replace("[","").replace("]", "");
                             ECG.add(k, Integer.parseInt(separatedString[k]));
                         }
                         s.setECG_values(ECG);
                         break;
 
                     case "EMG_values":
-                        data2[j+1].replace("[","").replace("]", "");
-                        separatedString = data2[j+1].split(",");
-                       List<Integer> EMG = new ArrayList();
-                        for(int k=0; k<separatedString.length; k++){
-                            //separatedString[k].replace("[","").replace("]", "");
-                            EMG.add(k, Integer.parseInt(separatedString[k]));
+                        //ata2[j+1]=data2[j+1].replace("[","").replace("]", "");
+                        if (data2[j+1]!= null){
+                        String[] separatedString2 = data2[j+1].split(",");
+                        
+                        List<Integer> EMG = new ArrayList();
+                        for(int m=0; m<separatedString2.length; m++){
+                            separatedString2[m]=separatedString2[m].replace("[","").replace("]", "");
+                            EMG.add(m, Integer.parseInt(separatedString2[m]));
                         }
                         s.setEMG_values(EMG);
                         break;
+                        }else{
+                            break;
+                        }
                     case "startDate":
                         try {
                             s.setStartDate(format.parse(data2[j+1]));
