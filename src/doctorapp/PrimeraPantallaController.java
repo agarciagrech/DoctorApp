@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -32,23 +33,38 @@ public class PrimeraPantallaController {
     private TextField ipAddress;
 
     @FXML
-    void logIn(ActionEvent event) throws IOException {
+    void logIn(ActionEvent event) {
         
         String ip = ipAddress.getText();
-        menu.initiliazeStreams(ip);
-        URL url = new File("src/doctorapp/logInDoctor.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);    
-        Scene scene = new Scene(root);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        try{
+            menu.initiliazeStreams(ip);
+            URL url = new File("src/doctorapp/logInDoctor.fxml").toURI().toURL();
+            Parent root = FXMLLoader.load(url);    
+            Scene scene = new Scene(root);
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        }catch (java.net.ConnectException ce) {
+            infoMessage("Please enter a correct IP Address", null, "Failed");
+        } catch (IOException ex) {
+            System.out.println("IOEXCEPTION");
+        }
+        
 
     }
     
       @FXML
     void exitServer(ActionEvent event) {
+        menu.exit();
 
+    }
+    public static void infoMessage(String infoMessage, String headerText, String title) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText(infoMessage);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.showAndWait();
     }
 
     

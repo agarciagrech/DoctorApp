@@ -38,18 +38,17 @@ public class menu {
     public static OutputStream outputStream;
     
     
-    public static void initiliazeStreams(String IPAddress) {
-        try {
+    public static void initiliazeStreams(String IPAddress) throws IOException {
             socket = utilities.CommunicationWithServer.connectToServer(IPAddress);
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
             pw = new PrintWriter(outputStream, true);
             br = new BufferedReader(new InputStreamReader(inputStream));
             pw.println(2);
-
-        } catch (IOException ex) {
-            Logger.getLogger(MenuDoctor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
+    
+    public static void exit(){
+        pw.println(0);
     }
    
        

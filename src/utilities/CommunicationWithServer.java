@@ -22,20 +22,15 @@ import java.text.SimpleDateFormat;
  */
 public class CommunicationWithServer {
     
-    public static Socket connectToServer(String IpAddress) {
-        Socket socket = new Socket();
-        try {
-            //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            socket = new Socket(IpAddress, 9000);
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
-            PrintWriter printWriter = new PrintWriter (outputStream,true);
-            BufferedReader bf = new BufferedReader (new InputStreamReader (inputStream));
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static Socket connectToServer(String IpAddress) throws IOException {
+       Socket socket = new Socket();
+        //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        socket = new Socket(IpAddress, 9000);
+        InputStream inputStream = socket.getInputStream();
+        OutputStream outputStream = socket.getOutputStream();
+        PrintWriter printWriter = new PrintWriter(outputStream, true);
+        BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
+
         return socket;
     }
     

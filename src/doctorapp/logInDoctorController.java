@@ -40,12 +40,11 @@ public class logInDoctorController {
     @FXML
     private Button exitButton;
     
-    @FXML
-    private TextField IPAddress;
+    
 
     @FXML
     void exit(ActionEvent event) {
-
+         menu.exit();
     }
 
     @FXML
