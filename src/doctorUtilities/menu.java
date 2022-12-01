@@ -49,8 +49,10 @@ public class menu {
     
     public static void exit(){
         pw.println(0);
+        pw.println(0);
         utilities.CommunicationWithServer.ReleaseResources(pw, br);
         utilities.CommunicationWithServer.exitFromServer(inputStream, outputStream, socket);
+        
         System.exit(0);
     }
    
