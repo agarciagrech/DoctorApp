@@ -5,7 +5,7 @@
  */
 package doctorapp;
 
-import doctorUtilities.MenuDoctor;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class DoctorApp extends Application {
     
-    static MenuDoctor md = new MenuDoctor();
+  
     
     @Override
     public void start(Stage stage) throws MalformedURLException, IOException {

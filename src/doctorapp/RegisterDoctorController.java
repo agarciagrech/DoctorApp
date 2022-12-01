@@ -5,7 +5,7 @@
  */
 package doctorapp;
 
-import doctorUtilities.MenuDoctor;
+
 import doctorUtilities.menu;
 import static doctorapp.logInDoctorController.infoMessage;
 import static doctorapp.logInDoctorController.showAlert;

@@ -54,11 +54,7 @@ public class PrimeraPantallaController {
 
     }
     
-      @FXML
-    void exitServer(ActionEvent event) {
-        menu.exit();
-
-    }
+      
     public static void infoMessage(String infoMessage, String headerText, String title) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText(infoMessage);

@@ -5,6 +5,7 @@
  */
 package doctorapp;
 
+import doctorUtilities.menu;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +37,7 @@ public class MenuDoctorController {
 
     @FXML
     void exit(ActionEvent event) {
-
+        menu.exit();
     }
 
     @FXML

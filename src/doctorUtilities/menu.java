@@ -49,6 +49,9 @@ public class menu {
     
     public static void exit(){
         pw.println(0);
+        utilities.CommunicationWithServer.ReleaseResources(pw, br);
+        utilities.CommunicationWithServer.exitFromServer(inputStream, outputStream, socket);
+        System.exit(0);
     }
    
        
@@ -65,6 +68,7 @@ public class menu {
         String line = br.readLine();
         if(line.equals("Wrong username or password")) {
             logInCorrect = false;
+            pw.println(2);
         } else if(line.equals("patient")){
                 //patientMenu(socket, inputStream, outputStream, br, pw, user.getUserId());
                 logInCorrect = true;
