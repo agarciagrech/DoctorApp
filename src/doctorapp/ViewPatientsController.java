@@ -160,7 +160,7 @@ public class ViewPatientsController  {
 
     @FXML
     void exitApp(ActionEvent event) {
-
+        menu.exit();
     }
 
    

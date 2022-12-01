@@ -48,6 +48,9 @@ public class editPatientController {
     private Button backButton;
     
     @FXML
+    private Button exitButton;
+    
+    @FXML
     private Button selectButton;
     
       @FXML
@@ -66,6 +69,11 @@ public class editPatientController {
        menu.editPatientAllergies(newAllergy,medCard);
        
 
+    }
+    
+    @FXML
+    void exitApp(ActionEvent event) {
+        menu.exit();
     }
 
     @FXML

@@ -67,6 +67,7 @@ public class RegisterDoctorController {
 
     @FXML
     void exitApp(ActionEvent event) {
+        menu.exit();
 
     }
 

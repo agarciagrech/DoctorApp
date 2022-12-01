@@ -43,6 +43,9 @@ public class ShowSignalsController {
 
     @FXML
     private Button consultFilenames;
+    
+     @FXML
+    private Button exitButton;
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -87,6 +90,11 @@ public class ShowSignalsController {
         String s = menu.selectsignal(filename);
         showAlert(Alert.AlertType.INFORMATION,owner,"Signals",s);
     }  
+    
+     @FXML
+    void exitApp(ActionEvent event) {
+         menu.exit();
+    }
     
     public static void infoMessage(String infoMessage, String headerText, String title) {
        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
