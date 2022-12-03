@@ -37,15 +37,11 @@ public class logInDoctorController {
     @FXML
     private TextField doctorPassword;
 
-    @FXML
-    private Button exitButton;
+   
     
     
 
-    @FXML
-    void exit(ActionEvent event) {
-         menu.exit();
-    }
+    
 
     @FXML
     void logIn(ActionEvent event) throws  IOException, Exception {

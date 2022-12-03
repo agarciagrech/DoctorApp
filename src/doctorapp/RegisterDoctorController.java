@@ -12,15 +12,18 @@ import static doctorapp.logInDoctorController.showAlert;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -48,7 +51,11 @@ public class RegisterDoctorController {
     @FXML
     private TextField txtemail;
 
+   @FXML
+    private Label nameError;
    
+   @FXML
+    private Label SurnameError;
 
     @FXML
     private Button exitButton;
@@ -74,6 +81,7 @@ public class RegisterDoctorController {
     @FXML
     void registerDoctor(ActionEvent event) throws IOException {
          Window owner = registerDoctorButton.getScene().getWindow();
+      
         if(txtname.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter the doctor's name");
             return;
@@ -92,7 +100,12 @@ public class RegisterDoctorController {
         
         String email = txtemail.getText();
         
-        String usernamePass = menu.createDoctor(name, surname, email);
+        
+       
+         String usernamePass = menu.createDoctor(name, surname, email);
+        
+        
+       
         
         if(usernamePass==null){
              infoMessage("Please enter the data correctly", null, "Failed");
@@ -113,6 +126,39 @@ public class RegisterDoctorController {
         
         
 
+    }
+    
+    public boolean ComprobarData(String name, String surname){
+        char[] chars = name.toCharArray();
+        boolean validData = true;
+
+        for (char c : chars) {
+            if (Character.isDigit(c)) {
+                validData = false;
+                this.txtname.clear();
+                break;
+            }
+        }
+        
+        char[] chars2 = surname.toCharArray();
+        for(char c1: chars){
+            if(Character.isDigit(c1)){
+                validData = false;
+                this.txtsurname.clear();
+                break;
+            }
+           
+        }
+
+        if (this.txtname.getText().equals("")) {
+            validData = false;
+            this.nameError.setText("*");
+        }
+        if (this.txtsurname.getText().equals("")) {
+            validData = false;
+            this.SurnameError.setText("*");
+        }
+        return validData;
     }
     
      public static void infoMessage(String infoMessage, String headerText, String title) {
@@ -141,4 +187,6 @@ public class RegisterDoctorController {
        alert.initOwner(owner);
        alert.show();
        }
+
+    
 }
