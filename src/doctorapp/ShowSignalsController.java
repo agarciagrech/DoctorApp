@@ -49,6 +49,7 @@ public class ShowSignalsController {
 
     @FXML
     void back(ActionEvent event) throws IOException {
+        menu.BacktTomenu();
         URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
@@ -56,8 +57,6 @@ public class ShowSignalsController {
 
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     @FXML
