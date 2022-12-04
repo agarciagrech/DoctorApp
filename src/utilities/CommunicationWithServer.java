@@ -166,65 +166,64 @@ public class CommunicationWithServer {
     }
     
     
-    public static Signal receiveSignal(BufferedReader br){
+    public static Signal receiveECGSignal(BufferedReader br) throws IOException {
         Signal s = new Signal();
-        try {
-        String line = br.readLine();
-        System.out.println(line);
-        line=line.replace("{", "");
-        line=line.replace("Signal", "");
-        String[] atribute = line.split(",");
-        SimpleDateFormat  format = new SimpleDateFormat("dd/MM/yyyy");
         
-        for (int i =0;i <atribute.length; i++){
-            String[] data2 = atribute[i].split("=");
-            for (int j =0;j <data2.length - 1; j++){
-                data2[j]=data2[j].replace(" ", "");
-                switch(data2[j]){
-                    case "signalId":
-                        s.setSignalId(Integer.parseInt(data2[j+1]));
-                        break;
-                    case "ECG_values":
-                        //data2[j+1]=data2[j+1].replace("[","").replace("]", "");
-                        String[] separatedString = data2[j+1].split(",");
-                        List<Integer> ECG = new ArrayList();
-                        for(int k=0; k<separatedString.length; k++){
-                            separatedString[k]=separatedString[k].replace("[","").replace("]", "");
-                            ECG.add(k, Integer.parseInt(separatedString[k]));
-                        }
-                        s.setECG_values(ECG);
-                        break;
+            String line = br.readLine();
+            System.out.println(line);
+            line = line.replace("{", "");
+            line = line.replace("Signal", "");
+            String[] atribute = line.split("/");
+            
 
-                    case "EMG_values":
-                        //ata2[j+1]=data2[j+1].replace("[","").replace("]", "");
-                        if (data2[j+1]!= null){
-                        String[] separatedString2 = data2[j+1].split(",");
-                        
-                        List<Integer> EMG = new ArrayList();
-                        for(int m=0; m<separatedString2.length; m++){
-                            separatedString2[m]=separatedString2[m].replace("[","").replace("]", "");
-                            EMG.add(m, Integer.parseInt(separatedString2[m]));
-                        }
-                        s.setEMG_values(EMG);
-                        break;
-                        }else{
-                            break;
-                        }
-                    case "startDate":
-                        try {
-                            s.setStartDate(format.parse(data2[j+1]));
-                        } catch (ParseException ex) {
-                            Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        break;
+            for (int i = 0; i < atribute.length; i++) {
+                String[] data2 = atribute[i].split("=");
+                for (int j = 0; j < data2.length - 1; j++) {
+                    data2[j] = data2[j].replace(" ", "");
+                    if(data2[j].equalsIgnoreCase("ECG_values")) {
+                            data2[j+1]=data2[j+1].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+                            String[] separatedString;
+                            separatedString = data2[j + 1].split(",");
+                            System.out.println(Arrays.toString(separatedString));
+                            List<Integer> ECG = new ArrayList();
+                            for (int k = 0; k < separatedString.length; k++) {
+                                ECG.add(k, Integer.parseInt(separatedString[k]));
+                                System.out.println(ECG.toString());
+                            }
+                            s.setECG_values(ECG);
+                    }
+            }
+        } 
+        
+        return s;
+    }
+    
+     public static Signal receiveEMGSignal(BufferedReader br) throws IOException {
+         System.out.println("In receive EMG");
+        Signal s = new Signal();
+        String line = br.readLine();
+        line = line.replace("{", "");
+            line = line.replace("Signal", "");
+           String[] atribute = line.split("/");
+             for (int i = 0; i < atribute.length; i++) {
+                String[] data2 = atribute[i].split("=");
+                for (int j = 0; j < data2.length - 1; j++) {
+                    data2[j] = data2[j].replace(" ", "");
+                    if(data2[j].equalsIgnoreCase("EMG_values")) {
+                            data2[j+1]=data2[j+1].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+                            String[] separatedString;
+                            separatedString = data2[j + 1].split(",");
+                            System.out.println(Arrays.toString(separatedString));
+                            List<Integer> ECG = new ArrayList();
+                            for (int k = 0; k < separatedString.length; k++) {
+                                ECG.add(k, Integer.parseInt(separatedString[k]));
+                                System.out.println(ECG.toString());
+                            }
+                            s.setECG_values(ECG);
+                    }
                 }
             }
-        }
-        } catch (IOException ex) {
-            Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("hola Recieve Signal");
-        System.out.println(s.toString());
+       
         return s;
     }
     
@@ -265,106 +264,7 @@ public class CommunicationWithServer {
         return u;
     }
     
-    
-    public static void recordSignal(Patient p, PrintWriter pw) {
-        Frame[] frame;
-        BITalino bitalino = null;
-        Signal s = new Signal();
-        ArrayList<Integer> ecg_vals = new ArrayList<Integer>();
-        ArrayList<Integer> emg_vals = new ArrayList<Integer>();
-        try {
-            bitalino = new BITalino();
-            // Code to find Devices
-            Vector<RemoteDevice> devices = bitalino.findDevices();
-            System.out.println(devices);
-
-            String macAddress = p.getMacAddress();
-
-            bitalino.open(macAddress, 100);
-
-            int[] channelsToAcquire = {1, 2}; //for EMG and ECG
-            bitalino.start(channelsToAcquire);
-
-            //Read in total 10000000 times --> por que elegimos este num
-            //Each time read a block of 10 samples to make the trials easier, but we plan to change it
-            
-            int block_size = 16;
-            frame = bitalino.read(block_size);
-
-            //System.out.println("size block: " + frame.length);
-            //pw.println("ECG:");
-            for (int i = 0; i < frame.length; i++) {
-                pw.println(frame[i].analog[0]);
-                System.out.println(frame[i].analog[0]);
-                ecg_vals.add(frame[i].analog[0]);
-            }
-            pw.println("END OF ECG");
-
-            //pw.println("EMG:");
-            //frame = bitalino.read(block_size);
-            for (int a = 0; a < frame.length; a++) {
-                pw.println(frame[a].analog[1]);
-                System.out.println(frame[a].analog[1]);
-                emg_vals.add(frame[a].analog[1]);
-            }
-            pw.println("END OF EMG");
-
-            //pw.println("ECG: " + ecg_vals.toString() + " // " + "EMG: " + emg_vals.toString());
-            //pw.println("END");
-
-            bitalino.stop();
-
-            //Type of signal + date ".txt"
-            Calendar c = Calendar.getInstance();
-            String day=Integer.toString(c.get(Calendar.DATE));
-            String month=Integer.toString(c.get(Calendar.MONTH));
-            String year=Integer.toString(c.get(Calendar.YEAR));
-
-            
-
-            String ruta = "../TSAppClient/ECG"+day+month+year+".txt";
-            String ruta2 = "../TSAppClient/EMG"+day+month+year+".txt";
-            //String contenido = Arrays.toString(s.getECG_values());
-            String contenido = ecg_vals.toString();
-            String contenido2 = emg_vals.toString();
-            //String contenido2 = Arrays.toString(s.getEMG_values());
-            File file = new File(ruta);
-            File file2 = new File(ruta2);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            if (!file2.exists()) {
-                file2.createNewFile();
-            }
-            FileWriter fwECG = new FileWriter(file);
-            FileWriter fwEMG = new FileWriter(file2);
-            BufferedWriter bwECG = new BufferedWriter(fwECG);
-            BufferedWriter bwEMG = new BufferedWriter(fwEMG);
-            bwECG.write(contenido);
-            bwEMG.write(contenido2);
-            bwECG.close();
-            bwEMG.close();
-            
-            //pw.println("ECG"+ day+month+year );
-            //pw.println("EMG"+ day+month+year );
-
-            System.out.println("Ok");
-        } catch (BITalinoException ex) {
-                Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Throwable ex) {
-            Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                //close bluetooth connection
-                if (bitalino != null) {
-                    bitalino.close();
-                }
-            } catch (BITalinoException ex) {
-                Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    
+  
     
     // This method is going to return the filenames of all the signals recorded:
     public static List<String> ShowSignals(BufferedReader bf, PrintWriter pw){

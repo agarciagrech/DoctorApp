@@ -8,6 +8,7 @@
 
 import doctorUtilities.menu;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -17,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -43,9 +46,23 @@ public class ShowSignalsController {
 
     @FXML
     private Button consultFilenames;
+    @FXML
+    private LineChart<?, ?> Graph;
     
-     @FXML
+    @FXML
     private Button exitButton;
+    @FXML
+    private Button DisplayButton;
+    @FXML
+    private TextField txtSignalFilename;
+    @FXML
+    private TextField SectionLabel;
+    
+    @FXML
+    private Button SelectSignalButton;
+        
+    private String section;
+    private List<Integer> data;
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -83,11 +100,11 @@ public class ShowSignalsController {
     }
     
     @FXML
-    void showSignal(ActionEvent event){
+    void showSignal(ActionEvent event) throws IOException{
         Window owner = showButton.getScene().getWindow();
         String filename = txtFIlename.getText();
-        String s = menu.selectsignal(filename);
-        showAlert(Alert.AlertType.INFORMATION,owner,"Signals",s);
+        List<Integer> data = menu.showSignal(filename);
+        //showAlert(Alert.AlertType.INFORMATION,owner,"Signals",s);
     }  
     
      @FXML
@@ -112,6 +129,25 @@ public class ShowSignalsController {
        alert.show();
        }
        
+         @FXML
+    void SelectSignal(ActionEvent event) throws IOException {
+       String filename;
+       filename = txtSignalFilename.getText();
+       data = menu.showSignal(filename);
+    }
+    
+    @FXML
+    void Display(ActionEvent event) throws FileNotFoundException, IOException {
+       XYChart.Series series = new XYChart.Series();
+       section = SectionLabel.getText();
+       
+       for (int i =0; i<600/*values.size()*/;i++){
+            series.getData().add(new XYChart.Data(i,data.get(i + 600*(Integer.parseInt(section)))));
+        }
+        Graph.getData().addAll(series);
+        
+        
+    }
 
 }
 

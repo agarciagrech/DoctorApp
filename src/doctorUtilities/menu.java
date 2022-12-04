@@ -86,76 +86,7 @@ public class menu {
     
     
     
-    
-    
-        
-        
-    private static void doctorMenu(Socket socket, InputStream inputStream, OutputStream outputStream, BufferedReader bf, PrintWriter pw) throws Exception {
-        Scanner sc = new Scanner (System.in);
-        String trashcan;
-        int option=0;
-        Doctor doctor = utilities.CommunicationWithServer.receiveDoctor(bf);
-        System.out.println("Hello Dr. " + doctor.getDsurname());
-        do{
-            int a = 0;
-            
-            
-            System.out.println("Choose an option[0-2]:");
-            System.out.println("\n1.Register a new Doctor \n2. See list of all my patients \n3. Edit Patient \n4. Consult recordings of a patient  \n 0. Exit");
-            do {
-                try {
-                    option = sc.nextInt();
-                    pw.println(option);
-                    a = 1;
-                } catch (Exception e) {
-                    trashcan = sc.next();
-                    System.out.println("Please select a valid option.");
-                }
-            } while (a==0);
-       
-            switch(option) {
-            case 0:
-                System.out.println("Thank you for using our system");
-                utilities.CommunicationWithServer.ReleaseResources(pw, bf);
-                utilities.CommunicationWithServer.exitFromServer(inputStream, outputStream, socket);
-                break;
-            case 1: 
-                System.out.println("Register a new Doctor");
-                //createDoctor(bf, pw);
-                break;
-            case 2:
-                System.out.println("See list of all my patients");
-                utilities.CommunicationWithServer.receivePatientList(bf);
-                break;
-            case 3:
-                System.out.println("Edit Patient");
-                utilities.CommunicationWithServer.receivePatientList(bf);
-                System.out.println("Introduce medcard of patient to update:");
-                int medcard = sc.nextInt();
-                editPatient(bf,pw, medcard);
-                break;
-            case 4:
-                System.out.println("Consult recordings of a patient");
-                utilities.CommunicationWithServer.receivePatientList(bf);
-                System.out.println("Introduce medcard of patient to update:");
-                int medcard2 = sc.nextInt();
-                pw.println(medcard2);
-                showSignals(bf, pw);
-                break;
-            case 5:
-                System.out.println("Delete Patient");
-                /*utilities.CommunicationWithServer.receivePatientList(bf);
-                System.out.println("Introduce medcard of patient to delete:");
-                int medcard3 = sc.nextInt();
-                //pw.println(medcard3);
-                deletePatient(bf, pw, medcard3);*/
-                break;
-            default:
-                System.out.println("Not a valid option.");
-                break;
-            }
-        } while(true);
-    }
+
     
     public static void BacktToShowPatients(){
         pw.println(2);
@@ -189,18 +120,18 @@ public class menu {
          List<String> sList = utilities.CommunicationWithServer.ShowSignals(br, pw);
         return sList;
      }
-    public static String selectsignal(String filename){
+    public static List<Integer> showSignal(String filename) throws IOException{
+        Signal s;
         pw.println(filename);
-        String s = null;
-        try {
-            /*
-            Signal s = utilities.CommunicationWithServer.receiveSignal(br);
-            return s;*/
-            s = br.readLine();
-        } catch (IOException ex) {
-            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        if (filename.contains("ECG")){
+            s= utilities.CommunicationWithServer.receiveECGSignal(br);
+            System.out.println(s.getECG_values());
+            return s.getECG_values();
+        }else{
+            s=utilities.CommunicationWithServer.receiveEMGSignal(br);
+            System.out.println(s.getEMG_values());
+            return s.getEMG_values();
         }
-        return s;
     }
     public static void editPatient(){
         pw.println(3);
@@ -269,23 +200,6 @@ public class menu {
     }
 
     
-    private static void deletePatient(BufferedReader br, PrintWriter pw, Integer medCard) throws Exception {
-        //Scanner sc = new Scanner (System.in);
-        //Show list with all patients.
-        //List<String> CompletePatientList = utilities.CommunicationWithServer.receivePatientList(br);
-        /*for(int i =0;i<CompletePatientList.size();i++){
-                System.out.println(CompletePatientList.get(i));
-        }
-        
-        //Chose a Patient to delete
-        System.out.println("Introduce de medical card number of the patient to delete: ");
-        String medcard = sc.next();
-        pw.println("Medical Card= " + medcard);*/
-        pw.println(medCard);
-        //Patient p = utilities.CommunicationWithServer.receivePatient(br);
-        
-    }
-    
 
     public static String createDoctor(String name, String surname, String email) throws IOException{
         
@@ -314,72 +228,7 @@ public class menu {
         
     }
     
-   
+ 
     
-    
-    private static void showSignals (BufferedReader br, PrintWriter pw) throws Exception{
-        //int size = Integer.parseInt(br.readLine());
-        Scanner sc = new Scanner (System.in);
-        //Show list with all signals
-        List<String> signalFilenames = utilities.CommunicationWithServer.ShowSignals(br, pw);
-        System.out.println(signalFilenames.size());
-        
-        for(int i=0; i<signalFilenames.size();i++){
-            System.out.println(signalFilenames.get(i));
-        }
-       
-            System.out.println("Introduce filename of the signal:");
-            String signalName = sc.next();
-            pw.println(signalName);
-           
-            String signal = br.readLine();
-            System.out.println(signal);
-            
-        //}
-    }
-    
-   
-    
-    private static void editPatient (BufferedReader bf,PrintWriter pw, int medcard) throws Exception{
-        Scanner sc = new Scanner (System.in);
-        int option=1;
-        String update;
-        pw.println(medcard);
-        Patient p = utilities.CommunicationWithServer.receivePatient(bf);
-        while(option != 0) {
-            System.out.println("Choose an option[0-2]:");
-            System.out.println("\n0. Back \n1. Diagnosis \n2. Allergies");
-            option = sc.nextInt();
-            pw.println(option);
-            switch(option) {
-                case 0:
-                    option=0;
-                    break;
-                case 1:
-                        System.out.println("Write diagnosis:");
-                        update = sc.next();
-                        p.setDiagnosis(update);
-                        utilities.CommunicationWithServer.sendPatient(pw, p);
-                        break;
-                case 2:
-                        System.out.println("Write Allergies:");
-                        update = sc.next();
-                        p.setAllergies(update);
-                        utilities.CommunicationWithServer.sendPatient(pw, p);
-                        break;
-                default:
-                     System.out.println("Not valid option");
-                     break;
-            }
-        }
-    }
-    
-    private static void updateMacAddress (PrintWriter pw, Patient p) throws Exception{
-       Scanner sc = new Scanner (System.in);
-        String update;
-        System.out.println("Write Bitalino MacAddress:");
-        update = sc.next();
-        p.setMacAddress(update);
-        utilities.CommunicationWithServer.sendPatient(pw, p);
-    }
+  
 }
