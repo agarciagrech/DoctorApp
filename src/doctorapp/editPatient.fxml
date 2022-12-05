@@ -17,7 +17,6 @@
       <Button fx:id="updateAButton" layoutX="350.0" layoutY="264.0" mnemonicParsing="false" onAction="#updateAllergies" prefHeight="26.0" prefWidth="67.0" text="Update " />
       <Button fx:id="consultPatients" layoutX="60.0" layoutY="80.0" mnemonicParsing="false" onAction="#showPatients" text="Consult Patients" />
       <Button fx:id="backButton" layoutX="35.0" layoutY="353.0" mnemonicParsing="false" onAction="#back" text="Back to menu" />
-      <Button fx:id="selectButton" layoutX="391.0" layoutY="80.0" mnemonicParsing="false" onAction="#sendMedCard" prefHeight="26.0" prefWidth="116.0" text="Select Patient" />
       <Button fx:id="exitButton" layoutX="500.0" layoutY="353.0" mnemonicParsing="false" onAction="#exitApp" text="Exit" />
    </children>
 </AnchorPane>

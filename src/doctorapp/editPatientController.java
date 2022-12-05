@@ -49,9 +49,7 @@ public class editPatientController {
     
     @FXML
     private Button exitButton;
-    
-    @FXML
-    private Button selectButton;
+
  
     
     
