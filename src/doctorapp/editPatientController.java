@@ -52,13 +52,7 @@ public class editPatientController {
     
     @FXML
     private Button selectButton;
-    
-      @FXML
-    void sendMedCard(ActionEvent event) {
-        
-        
-
-    }
+ 
     
     
 

@@ -57,9 +57,6 @@ public class logInDoctorController {
         }
         
         
-         
-        /*String IP = IPAddress.getText();
-        menu.initiliazeStreams(IP);*/
         
         String username = doctorUsername.getText();
         String password = doctorPassword.getText();

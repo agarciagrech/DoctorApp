@@ -138,7 +138,7 @@ public class UpdatePatientController implements InterfaceManager{
 
     @FXML
     void exitApp(ActionEvent event) {
-
+        doctorUtilities.menu.exit();
     }
       
     

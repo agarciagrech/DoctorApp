@@ -52,18 +52,6 @@ public class MenuDoctorController {
 
     }
 
-    /*@FXML
-    void registerPatient(ActionEvent event) throws IOException {
-        URL url = new File("src/doctorapp/registerPatient.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);    
-        Scene scene = new Scene(root);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        stage.setScene(scene);
-        stage.show();
-
-    }*/
-
     
 
     @FXML

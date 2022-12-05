@@ -12,7 +12,6 @@ import java.rmi.NotBoundException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.bluetooth.RemoteDevice;
 import pojos.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -140,10 +140,7 @@ public class ViewPatientsController  {
     
     
     
-    /*public void SelectedPatient(){
-       this.editButton.setDisable(false);
-       this.showSignals.setDisable(false);
-    }*/
+    
 
     @FXML
     void editPatient(ActionEvent event) throws IOException {
@@ -164,18 +161,6 @@ public class ViewPatientsController  {
     }
 
    
-
-    /*@FXML
-    void search(KeyEvent event) {
-         
-
-            List<Patient> sortList = MenuDoctor.seeMyPatients();
-            sortList.comparatorProperty().bind(patientTable.comparatorProperty());
-            patientTable.setItems(sortList);
-
-        
-
-    }*/
 
     @FXML
     void showPatientSignals(ActionEvent event) throws IOException {
