@@ -23,8 +23,6 @@
             <TextField fx:id="txtsurname" layoutX="186.0" layoutY="144.0" promptText="Surname" />
             <Button fx:id="exitButton" layoutX="17.0" layoutY="361.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="31.0" prefWidth="100.0" text="Exit" />
             <TextField fx:id="txtemail" layoutX="186.0" layoutY="187.0" promptText="Email" />
-            <Label fx:id="nameError" layoutX="365.0" layoutY="99.0" text="Label" />
-            <Label fx:id="SurnameError" layoutX="365.0" layoutY="148.0" text="Label" />
          </children>
       </AnchorPane>
    </children>

@@ -28,6 +28,9 @@ public class DeletePatientController {
     private Button consult;
     
      @FXML
+    private Button exitButton;
+    
+     @FXML
     private Button backButton;
 
     @FXML
@@ -66,6 +69,13 @@ public class DeletePatientController {
     void delete(ActionEvent event) {
         int medCardNumber = Integer.parseInt(medCard.getText());
         menu.DeletePatient(medCardNumber);
+
+    }
+    
+    @FXML
+    void exit(ActionEvent event) {
+       menu.exit();
+       
 
     }
 

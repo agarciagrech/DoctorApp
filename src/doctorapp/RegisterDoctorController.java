@@ -51,11 +51,7 @@ public class RegisterDoctorController {
     @FXML
     private TextField txtemail;
 
-   @FXML
-    private Label nameError;
-   
-   @FXML
-    private Label SurnameError;
+  
 
     @FXML
     private Button exitButton;
@@ -152,11 +148,11 @@ public class RegisterDoctorController {
 
         if (this.txtname.getText().equals("")) {
             validData = false;
-            this.nameError.setText("*");
+           
         }
         if (this.txtsurname.getText().equals("")) {
             validData = false;
-            this.SurnameError.setText("*");
+           
         }
         return validData;
     }
