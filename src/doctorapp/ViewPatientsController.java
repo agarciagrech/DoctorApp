@@ -70,7 +70,7 @@ public class ViewPatientsController  {
     private Button deleteButton;
     
     
-    private static SceneChanger sc;
+ 
     
     
 

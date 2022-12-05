@@ -96,12 +96,15 @@ public class RegisterDoctorController {
         
         String email = txtemail.getText();
         
+        boolean validData = ComprobarData(name, surname);
         
-       
-         String usernamePass = menu.createDoctor(name, surname, email);
-        
-        
-       
+        if(validData == false){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Missing data");
+            alert.setHeaderText("Please check the data");
+            alert.showAndWait();
+        }else{
+           String usernamePass = menu.createDoctor(name, surname, email);
         
         if(usernamePass==null){
              infoMessage("Please enter the data correctly", null, "Failed");
@@ -119,6 +122,9 @@ public class RegisterDoctorController {
                 e.printStackTrace();
             }
         }
+        }
+       
+         
         
         
 
