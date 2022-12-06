@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorapp.ShowSignalsController">
+<AnchorPane id="AnchorPane" fx:id="consultPatients" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doctorapp.ShowSignalsController">
    <children>
-      <LineChart fx:id="Graph" layoutX="-817.0" layoutY="-12.0" prefHeight="1023.0" prefWidth="3445.0" scaleX="0.5" scaleY="0.8">
+      <LineChart fx:id="Graph" layoutX="-823.0" layoutY="50.0" prefHeight="1023.0" prefWidth="3445.0" scaleX="0.5" scaleY="0.8">
         <xAxis>
           <NumberAxis side="BOTTOM" tickLabelGap="1.0" upperBound="1000.0" />
         </xAxis>
@@ -18,19 +18,22 @@
           <NumberAxis side="LEFT" tickLabelGap="1.0" upperBound="1000.0" />
         </yAxis>
       </LineChart>
-      <Button fx:id="SelectSignalButton" layoutX="887.0" layoutY="937.0" mnemonicParsing="false" onAction="#SelectSignal" text="Select signal" />
-      <Button fx:id="consultFilenames" layoutX="486.0" layoutY="938.0" mnemonicParsing="false" onAction="#showFilenames" text="Consult Filenames " />
-      <TextField fx:id="txtSignalFilename" layoutX="696.0" layoutY="937.0" prefHeight="26.0" prefWidth="67.0" promptText="Filename" />
-      <TextField fx:id="SectionLabel" layoutX="1340.0" layoutY="936.0" prefHeight="26.0" prefWidth="90.0" promptText="Section Num." />
-      <Button fx:id="DisplayButton" layoutX="1430.0" layoutY="936.0" mnemonicParsing="false" onAction="#Display" text="Display section" />
-      <Text layoutX="384.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show signal:">
+      <Button fx:id="SelectSignalButton" layoutX="869.0" layoutY="103.0" mnemonicParsing="false" onAction="#SelectSignal" text="Select signal" />
+      <Button fx:id="consultFilenames" layoutX="627.0" layoutY="104.0" mnemonicParsing="false" onAction="#showFilenames" text="Consult Filenames " />
+      <TextField fx:id="txtSignalFilename" layoutX="758.0" layoutY="104.0" prefHeight="26.0" prefWidth="102.0" promptText="Filename" />
+      <TextField fx:id="SectionLabel" layoutX="1163.0" layoutY="103.0" prefHeight="26.0" prefWidth="90.0" promptText="Section Num." />
+      <Button fx:id="DisplayButton" layoutX="1262.0" layoutY="103.0" mnemonicParsing="false" onAction="#Display" text="Display section" />
+      <Text layoutX="749.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show signal:">
          <font>
-            <Font name="Berlin Sans FB" size="16.0" />
+            <Font name="Berlin Sans FB" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="209.0" layoutY="955.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Introduce the name of the signal to view" />
-      <Text layoutX="1063.0" layoutY="953.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Now introduce the number of the section" />
+      <Text layoutX="685.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Introduce the name of the signal to view" />
+      <Text layoutX="1152.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Introduce the number of the section" />
       <Button fx:id="exitButton" layoutX="1750.0" layoutY="17.0" mnemonicParsing="false" onAction="#exitApp" text="Exit" />
       <Button fx:id="backButton" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Text layoutX="249.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Introduce the medical card number of the patient" />
+      <TextField fx:id="txtMedCard" layoutX="389.0" layoutY="104.0" prefHeight="26.0" prefWidth="90.0" promptText="Med. Card" />
+      <Button fx:id="consultPatients" layoutX="278.0" layoutY="104.0" mnemonicParsing="false" onAction="#showPatients" text="Consult Patients" />
    </children>
 </AnchorPane>
