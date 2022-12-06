@@ -7,27 +7,22 @@ package doctorapp;
 
 
 import doctorUtilities.menu;
-import static doctorapp.logInDoctorController.infoMessage;
-import static doctorapp.logInDoctorController.showAlert;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import pojos.Doctor;
 
 /**
  *
@@ -95,6 +90,12 @@ public class RegisterDoctorController {
         String surname = txtsurname.getText();
         
         String email = txtemail.getText();
+        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.find() == false) {
+            showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter a valid email");
+            return;
+        }
         
         boolean validData = ComprobarData(name, surname);
         

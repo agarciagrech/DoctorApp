@@ -72,13 +72,13 @@ public class menu {
             logInCorrect = false;
             pw.println(2);
         } else if(line.equals("patient")){
-                //patientMenu(socket, inputStream, outputStream, br, pw, user.getUserId());
-                logInCorrect = true;
-                Doctor d = utilities.CommunicationWithServer.receiveDoctor(br);
+                logInCorrect = false;
+                pw.println(1);
+                pw.println(2);
         } else if (line.equals("doctor")){
                 logInCorrect = true;
-                Doctor d = utilities.CommunicationWithServer.receiveDoctor(br);
-                //doctorMenu(socket, inputStream, outputStream, br, pw);
+                pw.println(0);
+                 Doctor d = utilities.CommunicationWithServer.receiveDoctor(br);
                
         }
         return logInCorrect;
@@ -173,31 +173,6 @@ public class menu {
     }    
 
    
-
-    private static Patient selectPatient(BufferedReader br, PrintWriter pw) throws Exception{
-        Scanner sc = new Scanner (System.in);
-        //Show list with all patients.
-        List<String> CompletePatientList = utilities.CommunicationWithServer.receivePatientList(br);
-        for(int i =0;i<CompletePatientList.size();i++){
-                System.out.println(CompletePatientList.get(i));
-        }
-        //Chose a Patient
-        List<Patient> patientList = new ArrayList();
-        Patient patient = null;
-        while(patientList.isEmpty()){
-            Integer medCard=null;
-            System.out.println(patientList.toString());
-            System.out.println("Enter the medical card number of the chosen patient: ");
-            try{
-                medCard = sc.nextInt();
-            }catch(Exception ex){
-                System.out.println("Not a valid medical card number ONLY NUMBERS");
-            }
-            pw.print(medCard);
-            patient = utilities.CommunicationWithServer.receivePatient(br);
-        }
-        return patient; 
-    }
 
     
 

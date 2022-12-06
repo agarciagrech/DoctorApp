@@ -35,12 +35,9 @@ public class CommunicationWithServer {
     
     public static void sendDoctor(PrintWriter pw, Doctor doctor) {
          pw.println(doctor.toString());
-         System.out.println("doctor sended");
     }
     
     public static void sendPatient(PrintWriter pw,Patient patient) {
-        System.out.println("in send patient");
-        System.out.println(patient.toString()); //SE MANDA BIEN
         pw.println(patient.toString());
         
     }
@@ -115,8 +112,6 @@ public class CommunicationWithServer {
                     }
                 }
             }
-            System.out.println("Patient received:");
-            System.out.println(p.toString());
              return p;
         }catch(IOException ex){
             return  null;
@@ -156,8 +151,6 @@ public class CommunicationWithServer {
                     }
                 }
             }
-            System.out.println("Doctor recieved:");
-            System.out.println(d.toString());
         }catch(IOException ex){
             Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -183,11 +176,9 @@ public class CommunicationWithServer {
                             data2[j+1]=data2[j+1].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
                             String[] separatedString;
                             separatedString = data2[j + 1].split(",");
-                            System.out.println(Arrays.toString(separatedString));
                             List<Integer> ECG = new ArrayList();
                             for (int k = 0; k < separatedString.length; k++) {
                                 ECG.add(k, Integer.parseInt(separatedString[k]));
-                                System.out.println(ECG.toString());
                             }
                             s.setECG_values(ECG);
                     }
@@ -212,13 +203,11 @@ public class CommunicationWithServer {
                             data2[j+1]=data2[j+1].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
                             String[] separatedString;
                             separatedString = data2[j + 1].split(",");
-                            System.out.println(Arrays.toString(separatedString));
-                            List<Integer> ECG = new ArrayList();
+                            List<Integer> EMG = new ArrayList();
                             for (int k = 0; k < separatedString.length; k++) {
-                                ECG.add(k, Integer.parseInt(separatedString[k]));
-                                System.out.println(ECG.toString());
+                                EMG.add(k, Integer.parseInt(separatedString[k]));
                             }
-                            s.setECG_values(ECG);
+                            s.setEMG_values(EMG);
                     }
                 }
             }
@@ -227,7 +216,6 @@ public class CommunicationWithServer {
     }
     
     public static User receiveUser (BufferedReader br){
-        System.out.println("in receive user");
         User u = new User();
         try {
         String line = br.readLine();
@@ -256,7 +244,6 @@ public class CommunicationWithServer {
                 }
             }
         }
-            System.out.println(u.toString());
         } catch (IOException ex) {
             Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -290,7 +277,6 @@ public class CommunicationWithServer {
                String line = bf.readLine();
                if (!line.equalsIgnoreCase("End of list")) {
                    stop=true;
-                   System.out.println(line);
                    patientList.add(line);
                }else{
                    stop=false;
