@@ -22,14 +22,12 @@ import java.text.SimpleDateFormat;
 public class CommunicationWithServer {
     
     public static Socket connectToServer(String IpAddress) throws IOException {
-       Socket socket = new Socket();
-        //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Socket socket = new Socket();
         socket = new Socket(IpAddress, 9000);
         InputStream inputStream = socket.getInputStream();
         OutputStream outputStream = socket.getOutputStream();
         PrintWriter printWriter = new PrintWriter(outputStream, true);
         BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
-
         return socket;
     }
     
@@ -39,7 +37,6 @@ public class CommunicationWithServer {
     
     public static void sendPatient(PrintWriter pw,Patient patient) {
         pw.println(patient.toString());
-        
     }
     
     public static void sendSignal(PrintWriter printWriter, Signal signal) {
@@ -53,7 +50,7 @@ public class CommunicationWithServer {
     public static Patient receivePatient(BufferedReader bf) {
         Patient p = new Patient();
         
-         try{
+        try{
             String line = bf.readLine();
             line=line.replace("{", "");
             line=line.replace("Patient", "");
@@ -118,12 +115,7 @@ public class CommunicationWithServer {
         }catch(NotBoundException e){
             Logger.getLogger(CommunicationWithServer.class.getName()).log(Level.SEVERE, null, e);
              return null;
-        }
-        
-        
-                           
-                        
-                 
+        }       
     }
     
     
@@ -161,35 +153,32 @@ public class CommunicationWithServer {
     public static Signal receiveECGSignal(BufferedReader br) throws IOException {
         Signal s = new Signal();
         
-            String line = br.readLine();
-            System.out.println(line);
-            line = line.replace("{", "");
-            line = line.replace("Signal", "");
-            String[] atribute = line.split("/");
-            
+        String line = br.readLine();
+        System.out.println(line);
+        line = line.replace("{", "");
+        line = line.replace("Signal", "");
+        String[] atribute = line.split("/");
 
-            for (int i = 0; i < atribute.length; i++) {
-                String[] data2 = atribute[i].split("=");
-                for (int j = 0; j < data2.length - 1; j++) {
-                    data2[j] = data2[j].replace(" ", "");
-                    if(data2[j].equalsIgnoreCase("ECG_values")) {
-                            data2[j+1]=data2[j+1].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
-                            String[] separatedString;
-                            separatedString = data2[j + 1].split(",");
-                            List<Integer> ECG = new ArrayList();
-                            for (int k = 0; k < separatedString.length; k++) {
-                                ECG.add(k, Integer.parseInt(separatedString[k]));
-                            }
-                            s.setECG_values(ECG);
+        for (int i = 0; i < atribute.length; i++) {
+            String[] data2 = atribute[i].split("=");
+            for (int j = 0; j < data2.length - 1; j++) {
+                data2[j] = data2[j].replace(" ", "");
+                if(data2[j].equalsIgnoreCase("ECG_values")) {
+                    data2[j+1]=data2[j+1].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+                    String[] separatedString;
+                    separatedString = data2[j + 1].split(",");
+                    List<Integer> ECG = new ArrayList();
+                    for (int k = 0; k < separatedString.length; k++) {
+                        ECG.add(k, Integer.parseInt(separatedString[k]));
                     }
+                    s.setECG_values(ECG);
+                }
             }
         } 
-        
         return s;
     }
     
      public static Signal receiveEMGSignal(BufferedReader br) throws IOException {
-         System.out.println("In receive EMG");
         Signal s = new Signal();
         String line = br.readLine();
         line = line.replace("{", "");
@@ -211,7 +200,6 @@ public class CommunicationWithServer {
                     }
                 }
             }
-       
         return s;
     }
     
@@ -219,7 +207,6 @@ public class CommunicationWithServer {
         User u = new User();
         try {
         String line = br.readLine();
-        System.out.println(line);
         line=line.replace("{", "");
         line=line.replace("User", "");
         line=line.replace("}", "");
@@ -251,8 +238,6 @@ public class CommunicationWithServer {
     }
     
   
-    
-    // This method is going to return the filenames of all the signals recorded:
     public static List<String> ShowSignals(BufferedReader bf, PrintWriter pw){
         try {
             List<String> filenames = new ArrayList();

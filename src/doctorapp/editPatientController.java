@@ -21,11 +21,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-/**
- *
- * @author agarc
- */
 public class editPatientController {
+    
     @FXML
     private TextField txtMedCard;
 
@@ -50,17 +47,12 @@ public class editPatientController {
     @FXML
     private Button exitButton;
 
- 
-    
-    
 
     @FXML
     void updateAllergies(ActionEvent event) {
        int medCard = Integer.parseInt(txtMedCard.getText());
        String newAllergy = txtAllergies.getText();
        menu.editPatientAllergies(newAllergy,medCard);
-       
-
     }
     
     @FXML
@@ -75,7 +67,7 @@ public class editPatientController {
        menu.editPatientDiagnosis(newDiagnosis,medCard);
     }
     
-     @FXML
+    @FXML
     void showPatients(ActionEvent event) throws IOException {
         URL url = new File("src/doctorapp/viewPatients.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
@@ -84,7 +76,6 @@ public class editPatientController {
 
         stage.setScene(scene);
         stage.show();
-
     }
     
     @FXML
@@ -98,5 +89,4 @@ public class editPatientController {
         stage.setScene(scene);
         stage.show();
     }
-
 }

@@ -24,8 +24,6 @@ import javafx.stage.Stage;
  */
 public class MenuDoctorController {
     
-   
-
     @FXML
     private Button registerDoctorButton;
 
@@ -46,25 +44,18 @@ public class MenuDoctorController {
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
         stage.setScene(scene);
         stage.show();
-
     }
 
     
-
     @FXML
     void viewPatients(ActionEvent event) throws IOException{
         URL url = new File("src/doctorapp/viewPatients.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);    
         Scene scene = new Scene(root);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
         stage.setScene(scene);
         stage.show();
-
     }
-
-    
 }

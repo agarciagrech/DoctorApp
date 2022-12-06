@@ -28,6 +28,7 @@ import javafx.stage.Window;
  * @author agarc
  */
 public class logInDoctorController {
+    
     @FXML
     private Button logInButton;
 
@@ -37,15 +38,9 @@ public class logInDoctorController {
     @FXML
     private TextField doctorPassword;
 
-   
     
-    
-
-    
-
     @FXML
     void logIn(ActionEvent event) throws  IOException, Exception {
-        
         Window owner = logInButton.getScene().getWindow();
         if(doctorUsername.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter your username");
@@ -55,8 +50,6 @@ public class logInDoctorController {
              showAlert(Alert.AlertType.ERROR, owner, "Error!", "Please enter your password");
              return;
         }
-        
-        
         
         String username = doctorUsername.getText();
         String password = doctorPassword.getText();
@@ -79,10 +72,8 @@ public class logInDoctorController {
                 e.printStackTrace();
             }
         }
-        
-        
-
     }
+    
     public static void infoMessage(String infoMessage, String headerText, String title) {
        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
            alert.setContentText(infoMessage);
@@ -99,5 +90,4 @@ public class logInDoctorController {
        alert.initOwner(owner);
        alert.show();
        }
-    
 }

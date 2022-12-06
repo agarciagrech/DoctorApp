@@ -39,12 +39,12 @@ public class menu {
     
     
     public static void initiliazeStreams(String IPAddress) throws IOException {
-            socket = utilities.CommunicationWithServer.connectToServer(IPAddress);
-            inputStream = socket.getInputStream();
-            outputStream = socket.getOutputStream();
-            pw = new PrintWriter(outputStream, true);
-            br = new BufferedReader(new InputStreamReader(inputStream));
-            pw.println(2);
+        socket = utilities.CommunicationWithServer.connectToServer(IPAddress);
+        inputStream = socket.getInputStream();
+        outputStream = socket.getOutputStream();
+        pw = new PrintWriter(outputStream, true);
+        br = new BufferedReader(new InputStreamReader(inputStream));
+        pw.println(2);
     }
     
     public static void exit(){
@@ -52,13 +52,8 @@ public class menu {
         pw.println(0);
         utilities.CommunicationWithServer.ReleaseResources(pw, br);
         utilities.CommunicationWithServer.exitFromServer(inputStream, outputStream, socket);
-        
         System.exit(0);
     }
-   
-       
-   
-
                   
     public static boolean login(String username, String password) throws Exception{
         pw.println(2);
@@ -78,15 +73,10 @@ public class menu {
         } else if (line.equals("doctor")){
                 logInCorrect = true;
                 pw.println(0);
-                 Doctor d = utilities.CommunicationWithServer.receiveDoctor(br);
-               
+                Doctor d = utilities.CommunicationWithServer.receiveDoctor(br);
         }
         return logInCorrect;
     }
-    
-    
-    
-
     
     public static void BacktToShowPatients(){
         pw.println(2);
@@ -135,7 +125,6 @@ public class menu {
     }
     public static void editPatient(){
         pw.println(3);
-       
     }
     
     public static void exitEditPatient(){
@@ -144,20 +133,15 @@ public class menu {
     
     public static void sendMedCard(Integer medCard){
        
-        
     }
 
     public static void editPatientDiagnosis(String newDiagnosis, Integer medCard){
-       pw.println(1);
-      utilities.CommunicationWithServer.receivePatientList(br);
-       pw.println(medCard);
-       Patient p = utilities.CommunicationWithServer.receivePatient(br);
-     
-      
-     
-      
-      p.setDiagnosis(newDiagnosis);
-      utilities.CommunicationWithServer.sendPatient(pw, p);
+        pw.println(1);
+        utilities.CommunicationWithServer.receivePatientList(br);
+        pw.println(medCard);
+        Patient p = utilities.CommunicationWithServer.receivePatient(br);
+        p.setDiagnosis(newDiagnosis);
+        utilities.CommunicationWithServer.sendPatient(pw, p);
     }
 
     public static void editPatientAllergies(String newAllergy, Integer medCard){
@@ -165,20 +149,11 @@ public class menu {
         utilities.CommunicationWithServer.receivePatientList(br);
         pw.println(medCard);
         Patient p = utilities.CommunicationWithServer.receivePatient(br);
-        
-       
-        
         p.setAllergies(newAllergy);
         utilities.CommunicationWithServer.sendPatient(pw, p);
     }    
 
-   
-
-    
-
     public static String createDoctor(String name, String surname, String email) throws IOException{
-        
-        //Doctor doctor = utilities.CommunicationWithServer.receiveDoctor(br);
         pw.println(1);
         boolean registerCorrect = false;
         Doctor d = new Doctor();
@@ -200,10 +175,5 @@ public class menu {
             registerCorrect = false;
             return null;
         }
-        
     }
-    
- 
-    
-  
 }

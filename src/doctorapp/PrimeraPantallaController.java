@@ -50,8 +50,6 @@ public class PrimeraPantallaController {
         } catch (IOException ex) {
             System.out.println("IOEXCEPTION");
         }
-        
-
     }
     
       
@@ -62,6 +60,4 @@ public class PrimeraPantallaController {
         alert.setHeaderText(headerText);
         alert.showAndWait();
     }
-
-    
 }

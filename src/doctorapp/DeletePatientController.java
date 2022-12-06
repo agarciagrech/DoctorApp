@@ -19,10 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- *
- * @author agarc
- */
+
 public class DeletePatientController {
     @FXML
     private Button consult;
@@ -43,40 +40,33 @@ public class DeletePatientController {
     void consultPatients(ActionEvent event) throws IOException {
         menu.BacktToShowPatients();
         URL url = new File("src/doctorapp/viewPatients.fxml").toURI().toURL();
-                Parent root = FXMLLoader.load(url);    
-                Scene scene = new Scene(root);
-                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(url);    
+        Scene scene = new Scene(root);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-                stage.setScene(scene);
-                stage.show();
-
+        stage.setScene(scene);
+        stage.show();
     }
     
      @FXML
     void back(ActionEvent event) throws IOException {
         menu.BacktTomenu();
         URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
-                Parent root = FXMLLoader.load(url);    
-                Scene scene = new Scene(root);
-                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-                stage.setScene(scene);
-                stage.show();
-
+        Parent root = FXMLLoader.load(url);    
+        Scene scene = new Scene(root);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void delete(ActionEvent event) {
         int medCardNumber = Integer.parseInt(medCard.getText());
         menu.DeletePatient(medCardNumber);
-
     }
     
     @FXML
     void exit(ActionEvent event) {
        menu.exit();
-       
-
     }
-
 }

@@ -39,14 +39,11 @@ import javafx.stage.Stage;
 import pojos.Doctor;
 import pojos.Patient;
 
-/**
- *
- * @author agarc
- */
+
 public class ViewPatientsController  {
+    
     @FXML
     private TableView<Patient> patientTable;
-
 
     @FXML
     private TextField filtro;
@@ -68,12 +65,8 @@ public class ViewPatientsController  {
     
      @FXML
     private Button deleteButton;
-    
-    
- 
-    
-    
-
+   
+     
     @FXML
     void back(ActionEvent event) throws IOException {
         URL url = new File("src/doctorapp/menuDoctor.fxml").toURI().toURL();
@@ -83,8 +76,6 @@ public class ViewPatientsController  {
 
         stage.setScene(scene);
         stage.show();
-        
-        
     }
     
     @FXML
@@ -97,8 +88,6 @@ public class ViewPatientsController  {
 
         stage.setScene(scene);
         stage.show();
-        
-        
     }
     
     @FXML
@@ -119,8 +108,6 @@ public class ViewPatientsController  {
             pList.add(p);
             patientTable.getItems().addAll(p);
         }
-        
-
     }
     
     public void initialize() {
@@ -135,12 +122,7 @@ public class ViewPatientsController  {
        surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
        
        patientTable.getColumns().addAll(medCardCol, nameCol, surnameCol);
-       
     }
-    
-    
-    
-    
 
     @FXML
     void editPatient(ActionEvent event) throws IOException {
@@ -152,15 +134,12 @@ public class ViewPatientsController  {
 
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
     void exitApp(ActionEvent event) {
         menu.exit();
     }
-
-   
 
     @FXML
     void showPatientSignals(ActionEvent event) throws IOException {
@@ -172,10 +151,5 @@ public class ViewPatientsController  {
 
         stage.setScene(scene);
         stage.show();
-        
-
     }
-
-   
-    
 }
